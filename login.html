@@ -19,19 +19,21 @@
 
     <p>Student Login Portal</p>
 
-    <form>
+    <form id="loginForm">
 
         <input
         type="email"
+        id="email"
         placeholder="Email Address"
         required>
 
         <input
         type="password"
+        id="password"
         placeholder="Password"
         required>
 
-        <button class="login-btn">
+        <button type="submit" class="login-btn">
             Login
         </button>
 
@@ -39,17 +41,21 @@
 
     <div class="login-links">
 
-        <a href="#">
+        <a href="#" id="forgotPassword">
             Forgot Password?
         </a>
 
-        <a href="#">
+        <a href="#" id="createAccount">
             Create Account
         </a>
 
     </div>
 
+    <p id="message"></p>
+
 </div>
+
+<script type="module" src="script.js"></script>
 
 </body>
 </html>
