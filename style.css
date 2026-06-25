@@ -1,6 +1,4 @@
-/* ===========================
-   SRO Academy Base Style
-=========================== */
+/* ========= SRO Academy Theme ========= */
 
 *{
     margin:0;
@@ -16,23 +14,78 @@ body{
 
 .container{
     width:90%;
-    max-width:1300px;
+    max-width:1200px;
     margin:auto;
 }
 
-section{
-    padding:80px 0;
+/* Hero Section */
+
+.hero{
+    background:linear-gradient(135deg,#0B3D91,#1E88E5);
+    color:#fff;
+    text-align:center;
+    padding:90px 20px;
 }
 
-h1,h2,h3{
+.hero h1{
+    font-size:52px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:22px;
+    margin-bottom:35px;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-block;
+    padding:15px 35px;
+    border-radius:8px;
+    font-size:18px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.primary{
+    background:#ff7b00;
+    color:white;
+}
+
+.primary:hover{
+    background:#ff9500;
+}
+
+.secondary{
+    background:white;
     color:#0B3D91;
 }
 
-a{
-    text-decoration:none;
+.secondary:hover{
+    background:#eeeeee;
 }
 
-button{
-    cursor:pointer;
-    border:none;
+/* Mobile */
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:34px;
+}
+
+.hero p{
+font-size:18px;
+}
+
+.btn{
+width:100%;
+text-align:center;
+}
+
 }
