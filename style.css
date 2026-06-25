@@ -127,3 +127,16 @@ body{
     }
 
 }
+/* ========= HERO BADGE ========= */
+
+.badge{
+    display:inline-block;
+    background:rgba(255,255,255,.15);
+    color:white;
+    padding:10px 20px;
+    border-radius:50px;
+    margin-bottom:25px;
+    font-size:15px;
+    border:1px solid rgba(255,255,255,.3);
+    backdrop-filter:blur(10px);
+}
