@@ -42,3 +42,12 @@ form.addEventListener("submit", async (e) => {
     }
 
 });
+export {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  collection,
+  getDocs,
+  addDoc
+};
