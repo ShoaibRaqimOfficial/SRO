@@ -1,1 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SRO Academy Admin</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="login-page">
+
+<div class="login-box" style="max-width:700px;">
+
+<h1>Admin Panel</h1>
+
+<p>Add New Assignment</p>
+
+<form id="assignmentForm">
+
+<input
+type="text"
+id="title"
+placeholder="Assignment Title"
+required>
+
+<textarea
+id="description"
+placeholder="Assignment Description"
+required
+style="width:100%;height:120px;padding:15px;margin-top:15px;border-radius:8px;"></textarea>
+
+<input
+type="text"
+id="dueDate"
+placeholder="Due Date"
+required>
+
+<input
+type="text"
+id="download"
+placeholder="Download Link"
+required>
+
+<button
+type="submit"
+class="login-btn">
+Publish Assignment
+</button>
+
+</form>
+
+<p id="message"></p>
+
+</div>
+
+<script type="module" src="admin.js"></script>
+
+</body>
+
+</html>
