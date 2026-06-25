@@ -301,3 +301,86 @@ grid-template-columns:1fr;
 }
 
 }
+/* ================= ASSIGNMENTS ================= */
+
+.assignments{
+    padding:90px 0;
+}
+
+.assignment-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+}
+
+.assignment-card{
+    background:#fff;
+    border-radius:18px;
+    padding:35px;
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.assignment-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 25px 50px rgba(0,0,0,.15);
+}
+
+.assignment-number{
+    color:#ff7b00;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.assignment-card h3{
+    color:#0B3D91;
+    margin-bottom:15px;
+}
+
+.assignment-card p{
+    color:#666;
+    line-height:1.7;
+    margin-bottom:20px;
+}
+
+.assignment-date{
+    color:#e74c3c;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.assignment-buttons{
+    display:flex;
+    gap:12px;
+}
+
+.assignment-buttons a{
+    flex:1;
+    text-align:center;
+    text-decoration:none;
+    padding:12px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.download-btn{
+    background:#0B3D91;
+    color:white;
+}
+
+.submit-btn{
+    background:#ff7b00;
+    color:white;
+}
+
+@media(max-width:900px){
+
+.assignment-grid{
+    grid-template-columns:1fr;
+}
+
+.assignment-buttons{
+    flex-direction:column;
+}
+
+}
