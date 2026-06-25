@@ -1,10 +1,8 @@
 import {
-    db
-} from "./firebase.js";
-
-import {
-    collection,
-    addDoc
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const form = document.getElementById("assignmentForm");
