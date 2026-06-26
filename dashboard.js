@@ -1,4 +1,5 @@
-import { db, auth, onAuthStateChanged, signOut } from "./firebase.js";
+import { db, auth, onAuthStateChanged } from "./firebase.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 // ==============================
@@ -38,7 +39,7 @@ async function loadDashboardStats() {
     try {
         // 1. Fetch Total Assignments
         const assignmentsSnap = await getDocs(collection(db, "assignments"));
-        totalAssignmentsEl.textContent = assignmentsSnap.size; // Total assignments count
+        totalAssignmentsEl.textContent = assignmentsSnap.size;
 
         // 2. Fetch Submissions & Calculate Status
         const submissionsSnap = await getDocs(collection(db, "submissions"));
@@ -47,7 +48,6 @@ async function loadDashboardStats() {
 
         submissionsSnap.forEach((doc) => {
             const data = doc.data();
-            // Default status ko hum empty ya "Pending" assume karte hain
             if (!data.status || data.status === "Pending") {
                 pendingCount++;
             } else if (data.status === "Approved") {
@@ -74,6 +74,7 @@ if (logoutBtn) {
             window.location.href = "login.html";
         } catch (error) {
             console.error("Logout Error:", error);
+            alert("Logout failed: " + error.message);
         }
     });
 }
