@@ -1,9 +1,8 @@
-import { db } from "./firebase.js";
-
 import {
-  collection,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+  db,
+  auth,
+  onAuthStateChanged
+} from "./firebase.js";
 
 const assignmentGrid = document.getElementById("assignmentGrid");
 
