@@ -3,7 +3,18 @@ import {
   auth,
   onAuthStateChanged
 } from "./firebase.js";
+onAuthStateChanged(auth, (user) => {
 
+    if (!user) {
+
+        window.location.href = "login.html";
+        return;
+
+    }
+
+    loadAssignments();
+
+});
 const assignmentGrid = document.getElementById("assignmentGrid");
 
 async function loadAssignments() {
@@ -60,4 +71,3 @@ async function loadAssignments() {
 
 }
 
-loadAssignments();
