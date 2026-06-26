@@ -5,7 +5,7 @@ import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.15.0/
 // ==============================
 // ADMIN EMAIL SECURITY
 // ==============================
-const ADMIN_EMAIL = "westanking2@gmail.com";
+const ADMIN_EMAIL = "itsraqim@gmail.com";
 
 // DOM Elements
 const totalAssignmentsEl = document.getElementById("totalAssignmentsCount");
@@ -22,18 +22,15 @@ onAuthStateChanged(auth, (user) => {
         return;
     }
     
-    // Email ko completely lowercase aur bina space ke compare karein
     const currentUserEmail = user.email.trim().toLowerCase();
     const adminEmailToMatch = ADMIN_EMAIL.trim().toLowerCase();
     
     if (currentUserEmail !== adminEmailToMatch) {
-        // Ye alert asal masla bata dega ke Firebase kis email se login hai
         alert("Access Denied! System is currently seeing this email: " + currentUserEmail);
         window.location.href = "login.html"; 
         return;
     }
     
-    // Agar admin hai, toh statistics load karo
     loadDashboardStats();
 });
 
@@ -42,11 +39,9 @@ onAuthStateChanged(auth, (user) => {
 // ==============================
 async function loadDashboardStats() {
     try {
-        // 1. Fetch Total Assignments
         const assignmentsSnap = await getDocs(collection(db, "assignments"));
         totalAssignmentsEl.textContent = assignmentsSnap.size;
 
-        // 2. Fetch Submissions & Calculate Status
         const submissionsSnap = await getDocs(collection(db, "submissions"));
         let pendingCount = 0;
         let approvedCount = 0;
@@ -60,7 +55,6 @@ async function loadDashboardStats() {
             }
         });
 
-        // Update HTML Cards
         pendingSubmissionsEl.textContent = pendingCount;
         approvedSubmissionsEl.textContent = approvedCount;
 
