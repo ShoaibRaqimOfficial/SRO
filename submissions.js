@@ -138,5 +138,32 @@ window.deleteSubmission = async function(id){
     if(confirm("Are you sure you want to delete this submission?")){
         await deleteDoc(doc(db,"submissions",id));
         loadSubmissions();
+// ==============================
+// SAVE FEEDBACK
+// ==============================
+window.saveFeedback = async function(id){
+
+    const pros = document.getElementById(`pros-${id}`).value;
+    const cons = document.getElementById(`cons-${id}`).value;
+    const feedback = document.getElementById(`feedback-${id}`).value;
+
+    try{
+
+        await updateDoc(doc(db,"submissions",id),{
+
+            pros: pros,
+            cons: cons,
+            feedback: feedback
+
+        });
+
+        alert("✅ Feedback Saved Successfully!");
+
+    }catch(error){
+
+        alert(error.message);
+
     }
+
+}    }
 }
