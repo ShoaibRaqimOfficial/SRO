@@ -1,51 +1,110 @@
-import { db } from "./firebase.js";
+import {
+    db,
+    doc,
+    updateDoc,
+    deleteDoc
+} from "./firebase.js";
 
 import {
-  collection,
-  getDocs
+    collection,
+    getDocs
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const submissionTable = document.getElementById("submissionTable");
 
 async function loadSubmissions() {
 
-    try {
+    submissionTable.innerHTML = "";
 
-        submissionTable.innerHTML = "";
+    const snapshot = await getDocs(collection(db, "submissions"));
 
-        const snapshot = await getDocs(collection(db, "submissions"));
+    snapshot.forEach((document) => {
 
-        snapshot.forEach((doc) => {
+        const data = document.data();
 
-            const data = doc.data();
+        submissionTable.innerHTML += `
 
-            submissionTable.innerHTML += `
+<tr>
 
-            <tr>
+<td>${data.studentName}</td>
 
-                <td>${data.studentName}</td>
+<td>${data.studentEmail}</td>
 
-                <td>${data.studentEmail}</td>
+<td>${data.assignmentId}</td>
 
-                <td>${data.assignmentId}</td>
+<td>${data.status}</td>
 
-                <td>${data.status}</td>
+<td>
 
-                <td>
-                    <a href="${data.assignmentLink}" target="_blank">
-                        Open
-                    </a>
-                </td>
+<a href="${data.assignmentLink}" target="_blank">
 
-            </tr>
+Open
 
-            `;
+</a>
 
-        });
+</td>
 
-    } catch (error) {
+<td>
 
-        console.log(error);
+<button onclick="approveSubmission('${document.id}')">
+
+✅ Approve
+
+</button>
+
+<button onclick="rejectSubmission('${document.id}')">
+
+❌ Reject
+
+</button>
+
+<button onclick="deleteSubmission('${document.id}')">
+
+🗑 Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+    });
+
+}
+
+window.approveSubmission = async function(id){
+
+    await updateDoc(doc(db,"submissions",id),{
+
+        status:"Approved"
+
+    });
+
+    loadSubmissions();
+
+}
+
+window.rejectSubmission = async function(id){
+
+    await updateDoc(doc(db,"submissions",id),{
+
+        status:"Rejected"
+
+    });
+
+    loadSubmissions();
+
+}
+
+window.deleteSubmission = async function(id){
+
+    if(confirm("Delete this submission?")){
+
+        await deleteDoc(doc(db,"submissions",id));
+
+        loadSubmissions();
 
     }
 
