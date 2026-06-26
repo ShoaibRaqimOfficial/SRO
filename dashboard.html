@@ -1,109 +1,323 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SRO Academy - Admin Dashboard</title>
-    <!-- Google Fonts & FontAwesome for modern look & icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
-    <style>
-        /* Base & Reset */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { display: flex; background-color: #f4f7f6; min-height: 100vh; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        /* Sidebar Design */
-        .sidebar { width: 260px; background: #0f172a; color: white; display: flex; flex-direction: column; transition: 0.3s; }
-        .sidebar-header { padding: 25px 20px; font-size: 22px; font-weight: 700; text-align: center; border-bottom: 1px solid #1e293b; color: #38bdf8; letter-spacing: 1px; }
-        .sidebar-menu { flex: 1; padding: 20px 0; }
-        .sidebar-menu a { display: flex; align-items: center; padding: 15px 25px; color: #94a3b8; text-decoration: none; font-size: 15px; font-weight: 500; transition: 0.3s; }
-        .sidebar-menu a:hover, .sidebar-menu a.active { background: #1e293b; color: #38bdf8; border-left: 4px solid #38bdf8; }
-        .sidebar-menu i { margin-right: 15px; font-size: 18px; width: 20px; text-align: center; }
+<title>SRO Academy - Admin Dashboard</title>
 
-        /* Main Content Area */
-        .main-content { flex: 1; padding: 30px; display: flex; flex-direction: column; overflow-y: auto; }
-        
-        /* Top Header */
-        .header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 20px 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 30px; }
-        .header h1 { font-size: 22px; color: #1e293b; font-weight: 600; }
-        .logout-btn { background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
-        .logout-btn:hover { background: #dc2626; box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.4); }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-        /* Dashboard Statistics Cards */
-        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
-        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: space-between; border-left: 5px solid #38bdf8; transition: transform 0.2s; }
-        .card:hover { transform: translateY(-5px); }
-        .card.success { border-left-color: #10b981; }
-        .card.warning { border-left-color: #f59e0b; }
-        .card-info h3 { color: #64748b; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
-        .card-info h2 { color: #0f172a; font-size: 32px; margin-top: 8px; font-weight: 700; }
-        .card-icon { font-size: 45px; color: #e2e8f0; }
+<style>
 
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            body { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; border-bottom: 1px solid #1e293b; }
-            .sidebar-menu { display: flex; overflow-x: auto; padding: 10px; }
-            .sidebar-menu a { padding: 10px 15px; font-size: 14px; white-space: nowrap; border-left: none; }
-            .sidebar-menu a.active { border-left: none; background: #1e293b; border-radius: 6px; }
-            .header { flex-direction: column; gap: 15px; text-align: center; }
-        }
-    </style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+display:flex;
+background:#f4f7f6;
+min-height:100vh;
+}
+
+.sidebar{
+width:260px;
+background:#0f172a;
+color:white;
+display:flex;
+flex-direction:column;
+}
+
+.sidebar-header{
+padding:25px;
+font-size:22px;
+font-weight:700;
+text-align:center;
+border-bottom:1px solid #1e293b;
+color:#38bdf8;
+}
+
+.sidebar-menu{
+flex:1;
+padding:20px 0;
+}
+
+.sidebar-menu a{
+display:flex;
+align-items:center;
+padding:15px 25px;
+color:#94a3b8;
+text-decoration:none;
+transition:.3s;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active{
+background:#1e293b;
+color:#38bdf8;
+border-left:4px solid #38bdf8;
+}
+
+.sidebar-menu i{
+margin-right:15px;
+}
+
+.main-content{
+flex:1;
+padding:30px;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#fff;
+padding:20px 30px;
+border-radius:12px;
+box-shadow:0 4px 6px rgba(0,0,0,.05);
+margin-bottom:30px;
+}
+
+.logout-btn{
+background:#ef4444;
+color:#fff;
+border:none;
+padding:12px 22px;
+border-radius:8px;
+cursor:pointer;
+font-weight:600;
+}
+
+.logout-btn:hover{
+background:#dc2626;
+}
+
+.cards{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:25px;
+
+}
+
+.card{
+
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+display:flex;
+justify-content:space-between;
+align-items:center;
+transition:.3s;
+
+}
+
+.card:hover{
+
+transform:translateY(-8px);
+
+}
+
+.card.blue{
+
+border-left:6px solid #3b82f6;
+
+}
+
+.card.orange{
+
+border-left:6px solid #f59e0b;
+
+}
+
+.card.green{
+
+border-left:6px solid #10b981;
+
+}
+
+.card.red{
+
+border-left:6px solid #ef4444;
+
+}
+
+.card.purple{
+
+border-left:6px solid #8b5cf6;
+
+}
+
+.card-info h3{
+
+font-size:15px;
+color:#64748b;
+
+}
+
+.card-info h2{
+
+font-size:34px;
+margin-top:8px;
+
+}
+
+.card-icon{
+
+font-size:48px;
+color:#d4d4d4;
+
+}
+
+@media(max-width:768px){
+
+body{
+
+flex-direction:column;
+
+}
+
+.sidebar{
+
+width:100%;
+
+}
+
+}
+
+</style>
+
 </head>
+
 <body>
 
-    <!-- Sidebar Navigation -->
-    <nav class="sidebar">
-        <div class="sidebar-header">
-            SRO Academy
-        </div>
-        <div class="sidebar-menu">
-            <a href="dashboard.html" class="active"><i class="fas fa-chart-pie"></i> Dashboard</a>
-            <a href="admin.html"><i class="fas fa-plus-square"></i> Add Assignment</a>
-            <a href="submissions.html"><i class="fas fa-folder-open"></i> Submissions</a>
-        </div>
-    </nav>
+<nav class="sidebar">
 
-    <!-- Main Content Area -->
-    <main class="main-content">
-        
-        <!-- Header -->
-        <header class="header">
-            <h1>Overview Dashboard</h1>
-            <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
-        </header>
+<div class="sidebar-header">
 
-        <!-- Dynamic Data Cards -->
-        <div class="cards">
-            <div class="card">
-                <div class="card-info">
-                    <h3>Total Assignments</h3>
-                    <h2 id="totalAssignmentsCount">0</h2>
-                </div>
-                <i class="fas fa-book-open card-icon"></i>
-            </div>
-            
-            <div class="card warning">
-                <div class="card-info">
-                    <h3>Pending Reviews</h3>
-                    <h2 id="pendingSubmissionsCount">0</h2>
-                </div>
-                <i class="fas fa-clock card-icon"></i>
-            </div>
+SRO Academy
 
-            <div class="card success">
-                <div class="card-info">
-                    <h3>Approved Submissions</h3>
-                    <h2 id="approvedSubmissionsCount">0</h2>
-                </div>
-                <i class="fas fa-check-circle card-icon"></i>
-            </div>
-        </div>
-        
-    </main>
+</div>
 
-    <!-- Connect your Firebase Dashboard logic here -->
-    <script type="module" src="./dashboard.js"></script>
+<div class="sidebar-menu">
+
+<a href="dashboard.html" class="active">
+<i class="fas fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="admin.html">
+<i class="fas fa-plus-circle"></i>
+Add Assignment
+</a>
+
+<a href="submissions.html">
+<i class="fas fa-folder-open"></i>
+Submissions
+</a>
+
+</div>
+
+</nav>
+
+<main class="main-content">
+
+<header class="header">
+
+<h1>Admin Dashboard</h1>
+
+<button id="logoutBtn" class="logout-btn">
+
+<i class="fas fa-sign-out-alt"></i>
+
+Logout
+
+</button>
+
+</header>
+
+<div class="cards">
+
+<div class="card blue">
+
+<div class="card-info">
+
+<h3>Total Assignments</h3>
+
+<h2 id="totalAssignmentsCount">0</h2>
+
+</div>
+
+<i class="fas fa-book card-icon"></i>
+
+</div>
+
+<div class="card orange">
+
+<div class="card-info">
+
+<h3>Pending Reviews</h3>
+
+<h2 id="pendingSubmissionsCount">0</h2>
+
+</div>
+
+<i class="fas fa-clock card-icon"></i>
+
+</div>
+
+<div class="card green">
+
+<div class="card-info">
+
+<h3>Approved</h3>
+
+<h2 id="approvedSubmissionsCount">0</h2>
+
+</div>
+
+<i class="fas fa-check-circle card-icon"></i>
+
+</div>
+
+<div class="card red">
+
+<div class="card-info">
+
+<h3>Rejected</h3>
+
+<h2 id="rejectedSubmissionsCount">0</h2>
+
+</div>
+
+<i class="fas fa-times-circle card-icon"></i>
+
+</div>
+
+<div class="card purple">
+
+<div class="card-info">
+
+<h3>Total Students</h3>
+
+<h2 id="totalStudentsCount">0</h2>
+
+</div>
+
+<i class="fas fa-users card-icon"></i>
+
+</div>
+
+</div>
+
+</main>
+
+<script type="module" src="dashboard.js"></script>
+
 </body>
 </html>
