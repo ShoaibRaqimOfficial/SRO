@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Submit Assignment</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="login-page">
+
+<div class="login-box">
+
+<h1>Submit Assignment</h1>
+
+<form id="submitForm">
+
+<input
+type="text"
+id="studentName"
+placeholder="Student Name"
+required
+>
+
+<input
+type="email"
+id="studentEmail"
+placeholder="Student Email"
+required
+>
+
+<input
+type="url"
+id="assignmentLink"
+placeholder="Google Drive / GitHub Link"
+required
+>
+
+<button type="submit">
+Submit Assignment
+</button>
+
+</form>
+
+<p id="message"></p>
+
+</div>
+
+<script type="module" src="submit.js"></script>
+
+</body>
+
+</html>
