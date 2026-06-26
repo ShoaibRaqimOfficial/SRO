@@ -51,9 +51,9 @@ async function loadAssignments() {
                         Download
                     </a>
 
-                    <a href="#" class="submit-btn">
-                        Submit
-                    </a>
+                  <a href="submit.html?id=${doc.id}" class="submit-btn">
+    Submit
+</a>
 
                 </div>
 
