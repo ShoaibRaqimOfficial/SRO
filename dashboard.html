@@ -1,1 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SRO Academy Dashboard</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="container nav-container">
+
+<div class="logo">
+
+SRO Academy
+
+</div>
+
+<ul class="nav-links">
+
+<li><a href="index.html">Home</a></li>
+
+<li><a href="#">My Dashboard</a></li>
+
+<li><a href="#">Leaderboard</a></li>
+
+<li><a href="#">Certificates</a></li>
+
+</ul>
+
+</div>
+
+</nav>
+
+<section class="container">
+
+<h1 class="section-title">
+
+Student Dashboard
+
+</h1>
+
+<div class="stats-grid">
+
+<div class="stat-card">
+
+<h2 id="totalAssignments">0</h2>
+
+<p>Total Assignments</p>
+
+</div>
+
+<div class="stat-card">
+
+<h2 id="submittedAssignments">0</h2>
+
+<p>Submitted</p>
+
+</div>
+
+<div class="stat-card">
+
+<h2 id="approvedAssignments">0</h2>
+
+<p>Approved</p>
+
+</div>
+
+<div class="stat-card">
+
+<h2 id="pendingAssignments">0</h2>
+
+<p>Pending</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="container">
+
+<h2 class="section-title">
+
+My Recent Submissions
+
+</h2>
+
+<table border="1" width="100%" cellspacing="0" cellpadding="12">
+
+<thead>
+
+<tr>
+
+<th>Assignment</th>
+
+<th>Status</th>
+
+<th>Date</th>
+
+</tr>
+
+</thead>
+
+<tbody id="dashboardTable">
+
+</tbody>
+
+</table>
+
+</section>
+
+<script type="module" src="dashboard.js"></script>
+
+</body>
+
+</html>
