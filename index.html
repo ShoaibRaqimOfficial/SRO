@@ -24,11 +24,11 @@
         </div>
 
         <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Assignments</a></li>
-            <li><a href="#">Leaderboard</a></li>
-            <li><a href="#">Gallery</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#assignmentGrid">Assignments</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="submissions.html">Admin</a></li>
+            <li><a href="login.html">Login</a></li>
         </ul>
 
     </div>
@@ -54,12 +54,12 @@
 
         <div class="buttons">
 
-            <a href="#" class="btn primary">
+            <a href="#assignmentGrid" class="btn primary">
                 Latest Assignment
             </a>
 
-            <a href="#" class="btn secondary">
-                Leaderboard
+            <a href="dashboard.html" class="btn secondary">
+                Student Dashboard
             </a>
 
         </div>
@@ -102,8 +102,6 @@
 
 <main class="container">
 
-<!-- ================= FEATURED COURSES ================= -->
-
 <section class="courses">
 
     <h2 class="section-title">
@@ -114,9 +112,7 @@
 
         <div class="course-card">
 
-            <div class="course-icon">
-                🎬
-            </div>
+            <div class="course-icon">🎬</div>
 
             <h3>Professional Video Editing</h3>
 
@@ -130,9 +126,7 @@
 
         <div class="course-card">
 
-            <div class="course-icon">
-                🤖
-            </div>
+            <div class="course-icon">🤖</div>
 
             <h3>AI Automation</h3>
 
@@ -146,9 +140,7 @@
 
         <div class="course-card">
 
-            <div class="course-icon">
-                📈
-            </div>
+            <div class="course-icon">📈</div>
 
             <h3>YouTube Growth</h3>
 
@@ -163,7 +155,6 @@
     </div>
 
 </section>
-<!-- ================= LATEST ASSIGNMENTS ================= -->
 
 <section class="assignments">
 
@@ -173,11 +164,12 @@
 
     <div class="assignment-grid" id="assignmentGrid">
 
-        <!-- Assignments automatically Firebase Firestore se load honge -->
+        <!-- Firebase se assignments yahan load honge -->
 
     </div>
 
 </section>
+
 </main>
 
 <script type="module" src="index.js"></script>
