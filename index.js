@@ -119,10 +119,79 @@ async function loadAssignments(user) {
 // ==============================
 window.submitTask = async function (assignmentId, title) {
 
-    const link = prompt("Paste your Google Drive / Project Link");
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".pdf,.zip,.rar,.doc,.docx";
 
-    if (!link) return;
+    input.onchange = async () => {
 
+        const file = input.files[0];
+
+        if (!file) return;
+
+        const user = auth.currentUser;
+
+        try {
+
+            // Upload to Cloudflare Worker
+            const formData = new FormData();
+            formData.append("file", file);
+
+            const upload = await fetch(
+                "https://YOUR-WORKER.workers.dev/upload",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+            const result = await upload.json();
+
+            if (!result.success) {
+                throw new Error(result.error || "Upload Failed");
+            }
+
+            // Save submission in Firestore
+            await addDoc(collection(db, "submissions"), {
+
+                assignmentId: title,
+
+                assignmentLink: result.url,
+
+                fileName: result.filename,
+
+                studentName: user.displayName || user.email.split("@")[0],
+
+                studentEmail: user.email,
+
+                status: "Pending",
+
+                pros: "",
+
+                cons: "",
+
+                feedback: "",
+
+                submittedAt: new Date().toISOString()
+
+            });
+
+            alert("✅ Assignment Submitted Successfully.");
+
+            loadAssignments(user);
+
+        }
+        catch (err) {
+
+            alert(err.message);
+
+        }
+
+    };
+
+    input.click();
+
+};
     try {
 
         const user = auth.currentUser;
