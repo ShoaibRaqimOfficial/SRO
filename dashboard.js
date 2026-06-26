@@ -1,109 +1,79 @@
-import {
-  db,
-  auth,
-  onAuthStateChanged
-} from "./firebase.js";
+import { db, auth, onAuthStateChanged, signOut } from "./firebase.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
-import {
-  collection,
-  query,
-  where,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+// ==============================
+// ADMIN EMAIL SECURITY
+// ==============================
+const ADMIN_EMAIL = "westanking2@gmail.com";
 
-const totalAssignments = document.getElementById("totalAssignments");
-const submittedAssignments = document.getElementById("submittedAssignments");
-const approvedAssignments = document.getElementById("approvedAssignments");
-const pendingAssignments = document.getElementById("pendingAssignments");
+// DOM Elements
+const totalAssignmentsEl = document.getElementById("totalAssignmentsCount");
+const pendingSubmissionsEl = document.getElementById("pendingSubmissionsCount");
+const approvedSubmissionsEl = document.getElementById("approvedSubmissionsCount");
+const logoutBtn = document.getElementById("logoutBtn");
 
-const dashboardTable = document.getElementById("dashboardTable");
-
-onAuthStateChanged(auth, async (user) => {
-
-    console.log("User Object:", user);
-
+// ==============================
+// SECURITY CHECK
+// ==============================
+onAuthStateChanged(auth, (user) => {
     if (!user) {
-
-        console.log("User NOT Logged In");
-
         window.location.href = "login.html";
         return;
-
     }
-
-    console.log("Logged In Email:", user.email);
-
-    loadDashboard(user.email);
-
+    
+    if (user.email !== ADMIN_EMAIL) {
+        alert("Access Denied! You are not an Admin.");
+        window.location.href = "login.html"; 
+        return;
+    }
+    
+    // Agar admin hai, toh statistics load karo
+    loadDashboardStats();
 });
 
-async function loadDashboard(email) {
-
-    console.log("Dashboard Loading...");
-
-    dashboardTable.innerHTML = "";
-
-    let submitted = 0;
-    let approved = 0;
-    let pending = 0;
-
+// ==============================
+// FETCH DASHBOARD STATS
+// ==============================
+async function loadDashboardStats() {
     try {
+        // 1. Fetch Total Assignments
+        const assignmentsSnap = await getDocs(collection(db, "assignments"));
+        totalAssignmentsEl.textContent = assignmentsSnap.size; // Total assignments count
 
-        // Total Assignments
+        // 2. Fetch Submissions & Calculate Status
+        const submissionsSnap = await getDocs(collection(db, "submissions"));
+        let pendingCount = 0;
+        let approvedCount = 0;
 
-        const assignmentSnapshot = await getDocs(collection(db, "assignments"));
-
-        console.log("Assignments:", assignmentSnapshot.size);
-
-        totalAssignments.textContent = assignmentSnapshot.size;
-
-        // Student Submissions
-
-        const q = query(
-            collection(db, "submissions"),
-            where("studentEmail", "==", email)
-        );
-
-        const snapshot = await getDocs(q);
-
-        console.log("Submissions:", snapshot.size);
-
-        submitted = snapshot.size;
-
-        snapshot.forEach((doc) => {
-
+        submissionsSnap.forEach((doc) => {
             const data = doc.data();
-
-            console.log(data);
-
-            if (data.status === "Approved") approved++;
-
-            if (data.status === "Pending") pending++;
-
-            dashboardTable.innerHTML += `
-
-            <tr>
-
-                <td>${data.assignmentId}</td>
-
-                <td>${data.status}</td>
-
-                <td>${data.submittedAt}</td>
-
-            </tr>
-
-            `;
-
+            // Default status ko hum empty ya "Pending" assume karte hain
+            if (!data.status || data.status === "Pending") {
+                pendingCount++;
+            } else if (data.status === "Approved") {
+                approvedCount++;
+            }
         });
 
-        submittedAssignments.textContent = submitted;
-        approvedAssignments.textContent = approved;
-        pendingAssignments.textContent = pending;
+        // Update HTML Cards
+        pendingSubmissionsEl.textContent = pendingCount;
+        approvedSubmissionsEl.textContent = approvedCount;
 
     } catch (error) {
-
-        console.error("Dashboard Error:", error);
-
+        console.error("Error loading stats:", error);
     }
+}
 
+// ==============================
+// LOGOUT FUNCTION
+// ==============================
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", async () => {
+        try {
+            await signOut(auth);
+            window.location.href = "login.html";
+        } catch (error) {
+            console.error("Logout Error:", error);
+        }
+    });
 }
