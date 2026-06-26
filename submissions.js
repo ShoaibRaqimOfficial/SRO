@@ -135,9 +135,17 @@ window.rejectSubmission = async function(id){
 // DELETE
 // ==============================
 window.deleteSubmission = async function(id){
+
     if(confirm("Are you sure you want to delete this submission?")){
+
         await deleteDoc(doc(db,"submissions",id));
+
         loadSubmissions();
+
+    }
+
+}
+
 // ==============================
 // SAVE FEEDBACK
 // ==============================
@@ -150,11 +158,9 @@ window.saveFeedback = async function(id){
     try{
 
         await updateDoc(doc(db,"submissions",id),{
-
             pros: pros,
             cons: cons,
             feedback: feedback
-
         });
 
         alert("✅ Feedback Saved Successfully!");
@@ -165,5 +171,4 @@ window.saveFeedback = async function(id){
 
     }
 
-}    }
 }
