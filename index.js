@@ -192,42 +192,4 @@ window.submitTask = async function (assignmentId, title) {
     input.click();
 
 };
-    try {
-
-        const user = auth.currentUser;
-
-        await addDoc(collection(db, "submissions"), {
-
-            assignmentId: title,
-
-            assignmentLink: link,
-
-            studentName: user.displayName || user.email.split("@")[0],
-
-            studentEmail: user.email,
-
-            status: "Pending",
-
-            pros: "",
-
-            cons: "",
-
-            feedback: "",
-
-            submittedAt: new Date().toISOString()
-
-        });
-
-        alert("Assignment Submitted Successfully.");
-
-        loadAssignments(user);
-
-    }
-
-    catch (error) {
-
-        alert(error.message);
-
-    }
-
 };
