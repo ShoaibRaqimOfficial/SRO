@@ -10,8 +10,11 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const form = document.getElementById("submitForm");
-const assignmentLink = document.getElementById("assignmentLink");
+const assignmentFile = document.getElementById("assignmentFile");
 const message = document.getElementById("message");
+
+// 👇 Apna Worker URL
+const WORKER_URL = "https://twilight-queen-9702.westanking2.workers.dev";
 
 // URL se Assignment ID
 const params = new URLSearchParams(window.location.search);
@@ -21,15 +24,12 @@ const assignmentId = params.get("id");
 onAuthStateChanged(auth, (user) => {
 
     if (!user) {
-
         window.location.href = "login.html";
-
     }
 
 });
 
 // Submit
-
 form.addEventListener("submit", async (e) => {
 
     e.preventDefault();
@@ -40,16 +40,49 @@ form.addEventListener("submit", async (e) => {
 
         message.style.color = "red";
         message.textContent = "Please login first.";
+        return;
 
+    }
+
+    if (assignmentFile.files.length === 0) {
+
+        message.style.color = "red";
+        message.textContent = "Please select a file.";
         return;
 
     }
 
     try {
 
-        // Email se temporary name banana
+        message.style.color = "blue";
+        message.textContent = "Uploading file...";
+
+        const file = assignmentFile.files[0];
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        // Upload to Cloudflare Worker
+        const uploadResponse = await fetch(WORKER_URL, {
+
+            method: "POST",
+            body: formData
+
+        });
+
+        if (!uploadResponse.ok) {
+            throw new Error("File upload failed.");
+        }
+
+        const uploadResult = await uploadResponse.json();
+
+        if (!uploadResult.success) {
+            throw new Error("Upload failed.");
+        }
+
         const studentName = user.email.split("@")[0];
 
+        // Save in Firestore
         await addDoc(collection(db, "submissions"), {
 
             assignmentId: assignmentId,
@@ -58,7 +91,9 @@ form.addEventListener("submit", async (e) => {
 
             studentEmail: user.email,
 
-            assignmentLink: assignmentLink.value,
+            assignmentLink: uploadResult.url,
+
+            fileName: uploadResult.filename,
 
             submittedAt: new Date().toLocaleString(),
 
@@ -72,6 +107,8 @@ form.addEventListener("submit", async (e) => {
         form.reset();
 
     } catch (error) {
+
+        console.error(error);
 
         message.style.color = "red";
         message.textContent = error.message;
