@@ -138,7 +138,7 @@ window.submitTask = async function (assignmentId, title) {
             formData.append("file", file);
 
             const upload = await fetch(
-                "https://YOUR-WORKER.workers.dev/upload",
+                "https://twilight-queen-9702.westanking2.workers.dev/upload",
                 {
                     method: "POST",
                     body: formData
