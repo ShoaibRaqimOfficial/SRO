@@ -1,10 +1,7 @@
 import {
-  db,
-  auth,
-  onAuthStateChanged
-} from "./firebase.js";
-onAuthStateChanged(auth, (user) => {
-
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
     if (!user) {
 
         window.location.href = "login.html";
