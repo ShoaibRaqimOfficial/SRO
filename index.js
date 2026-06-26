@@ -1,7 +1,17 @@
 import {
+  db,
+  auth,
+  onAuthStateChanged
+} from "./firebase.js";
+
+import {
   collection,
   getDocs
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+// Check Login
+onAuthStateChanged(auth, (user) => {
+
     if (!user) {
 
         window.location.href = "login.html";
@@ -12,8 +22,10 @@ import {
     loadAssignments();
 
 });
+
 const assignmentGrid = document.getElementById("assignmentGrid");
 
+// Load Assignments
 async function loadAssignments() {
 
     try {
@@ -48,9 +60,9 @@ async function loadAssignments() {
                         Download
                     </a>
 
-                  <a href="submit.html?id=${doc.id}" class="submit-btn">
-    Submit
-</a>
+                    <a href="submit.html?id=${doc.id}" class="submit-btn">
+                        Submit
+                    </a>
 
                 </div>
 
