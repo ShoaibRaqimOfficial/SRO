@@ -14,7 +14,7 @@ const approvedSubmissionsEl = document.getElementById("approvedSubmissionsCount"
 const logoutBtn = document.getElementById("logoutBtn");
 
 // ==============================
-// SECURITY CHECK
+// SECURITY CHECK (SMART VERSION)
 // ==============================
 onAuthStateChanged(auth, (user) => {
     if (!user) {
@@ -22,8 +22,13 @@ onAuthStateChanged(auth, (user) => {
         return;
     }
     
-    if (user.email !== ADMIN_EMAIL) {
-        alert("Access Denied! You are not an Admin.");
+    // Email ko completely lowercase aur bina space ke compare karein
+    const currentUserEmail = user.email.trim().toLowerCase();
+    const adminEmailToMatch = ADMIN_EMAIL.trim().toLowerCase();
+    
+    if (currentUserEmail !== adminEmailToMatch) {
+        // Ye alert asal masla bata dega ke Firebase kis email se login hai
+        alert("Access Denied! System is currently seeing this email: " + currentUserEmail);
         window.location.href = "login.html"; 
         return;
     }
