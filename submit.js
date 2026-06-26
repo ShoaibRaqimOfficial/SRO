@@ -14,7 +14,7 @@ const assignmentFile = document.getElementById("assignmentFile");
 const message = document.getElementById("message");
 
 // 👇 Apna Worker URL
-const WORKER_URL = "https://twilight-queen-9702.westanking2.workers.dev";
+const WORKER_URL = "https://twilight-queen-9702.westanking2.workers.dev/upload";
 
 // URL se Assignment ID
 const params = new URLSearchParams(window.location.search);
