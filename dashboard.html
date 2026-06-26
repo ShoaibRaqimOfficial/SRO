@@ -1,125 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRO Academy - Admin Dashboard</title>
+    <!-- Google Fonts & FontAwesome for modern look & icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* Base & Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { display: flex; background-color: #f4f7f6; min-height: 100vh; }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        /* Sidebar Design */
+        .sidebar { width: 260px; background: #0f172a; color: white; display: flex; flex-direction: column; transition: 0.3s; }
+        .sidebar-header { padding: 25px 20px; font-size: 22px; font-weight: 700; text-align: center; border-bottom: 1px solid #1e293b; color: #38bdf8; letter-spacing: 1px; }
+        .sidebar-menu { flex: 1; padding: 20px 0; }
+        .sidebar-menu a { display: flex; align-items: center; padding: 15px 25px; color: #94a3b8; text-decoration: none; font-size: 15px; font-weight: 500; transition: 0.3s; }
+        .sidebar-menu a:hover, .sidebar-menu a.active { background: #1e293b; color: #38bdf8; border-left: 4px solid #38bdf8; }
+        .sidebar-menu i { margin-right: 15px; font-size: 18px; width: 20px; text-align: center; }
 
-<title>SRO Academy Dashboard</title>
+        /* Main Content Area */
+        .main-content { flex: 1; padding: 30px; display: flex; flex-direction: column; overflow-y: auto; }
+        
+        /* Top Header */
+        .header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 20px 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .header h1 { font-size: 22px; color: #1e293b; font-weight: 600; }
+        .logout-btn { background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        .logout-btn:hover { background: #dc2626; box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.4); }
 
-<link rel="stylesheet" href="style.css">
+        /* Dashboard Statistics Cards */
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: space-between; border-left: 5px solid #38bdf8; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+        .card.success { border-left-color: #10b981; }
+        .card.warning { border-left-color: #f59e0b; }
+        .card-info h3 { color: #64748b; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+        .card-info h2 { color: #0f172a; font-size: 32px; margin-top: 8px; font-weight: 700; }
+        .card-icon { font-size: 45px; color: #e2e8f0; }
 
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; border-bottom: 1px solid #1e293b; }
+            .sidebar-menu { display: flex; overflow-x: auto; padding: 10px; }
+            .sidebar-menu a { padding: 10px 15px; font-size: 14px; white-space: nowrap; border-left: none; }
+            .sidebar-menu a.active { border-left: none; background: #1e293b; border-radius: 6px; }
+            .header { flex-direction: column; gap: 15px; text-align: center; }
+        }
+    </style>
 </head>
-
 <body>
 
-<nav class="navbar">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            SRO Academy
+        </div>
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="active"><i class="fas fa-chart-pie"></i> Dashboard</a>
+            <a href="admin.html"><i class="fas fa-plus-square"></i> Add Assignment</a>
+            <a href="submissions.html"><i class="fas fa-folder-open"></i> Submissions</a>
+        </div>
+    </nav>
 
-<div class="container nav-container">
+    <!-- Main Content Area -->
+    <main class="main-content">
+        
+        <!-- Header -->
+        <header class="header">
+            <h1>Overview Dashboard</h1>
+            <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </header>
 
-<div class="logo">
+        <!-- Dynamic Data Cards -->
+        <div class="cards">
+            <div class="card">
+                <div class="card-info">
+                    <h3>Total Assignments</h3>
+                    <h2 id="totalAssignmentsCount">0</h2>
+                </div>
+                <i class="fas fa-book-open card-icon"></i>
+            </div>
+            
+            <div class="card warning">
+                <div class="card-info">
+                    <h3>Pending Reviews</h3>
+                    <h2 id="pendingSubmissionsCount">0</h2>
+                </div>
+                <i class="fas fa-clock card-icon"></i>
+            </div>
 
-SRO Academy
+            <div class="card success">
+                <div class="card-info">
+                    <h3>Approved Submissions</h3>
+                    <h2 id="approvedSubmissionsCount">0</h2>
+                </div>
+                <i class="fas fa-check-circle card-icon"></i>
+            </div>
+        </div>
+        
+    </main>
 
-</div>
-
-<ul class="nav-links">
-
-<li><a href="index.html">Home</a></li>
-
-<li><a href="#">My Dashboard</a></li>
-
-<li><a href="#">Leaderboard</a></li>
-
-<li><a href="#">Certificates</a></li>
-
-</ul>
-
-</div>
-
-</nav>
-
-<section class="container">
-
-<h1 class="section-title">
-
-Student Dashboard
-
-</h1>
-
-<div class="stats-grid">
-
-<div class="stat-card">
-
-<h2 id="totalAssignments">0</h2>
-
-<p>Total Assignments</p>
-
-</div>
-
-<div class="stat-card">
-
-<h2 id="submittedAssignments">0</h2>
-
-<p>Submitted</p>
-
-</div>
-
-<div class="stat-card">
-
-<h2 id="approvedAssignments">0</h2>
-
-<p>Approved</p>
-
-</div>
-
-<div class="stat-card">
-
-<h2 id="pendingAssignments">0</h2>
-
-<p>Pending</p>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="container">
-
-<h2 class="section-title">
-
-My Recent Submissions
-
-</h2>
-
-<table border="1" width="100%" cellspacing="0" cellpadding="12">
-
-<thead>
-
-<tr>
-
-<th>Assignment</th>
-
-<th>Status</th>
-
-<th>Date</th>
-
-</tr>
-
-</thead>
-
-<tbody id="dashboardTable">
-
-</tbody>
-
-</table>
-
-</section>
-
-<script type="module" src="dashboard.js"></script>
-
+    <!-- Connect your Firebase Dashboard logic here -->
+    <!-- <script type="module" src="./dashboard.js"></script> -->
 </body>
-
 </html>
