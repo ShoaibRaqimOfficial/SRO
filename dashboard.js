@@ -2,78 +2,128 @@ import { db, auth, onAuthStateChanged } from "./firebase.js";
 import { signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
-// ==============================
-// ADMIN EMAIL SECURITY
-// ==============================
+// =====================================
+// ADMIN EMAIL
+// =====================================
+
 const ADMIN_EMAIL = "itsraqim@gmail.com";
 
-// DOM Elements
+// =====================================
+// DOM
+// =====================================
+
 const totalAssignmentsEl = document.getElementById("totalAssignmentsCount");
 const pendingSubmissionsEl = document.getElementById("pendingSubmissionsCount");
 const approvedSubmissionsEl = document.getElementById("approvedSubmissionsCount");
+const rejectedSubmissionsEl = document.getElementById("rejectedSubmissionsCount");
+const totalStudentsEl = document.getElementById("totalStudentsCount");
 const logoutBtn = document.getElementById("logoutBtn");
 
-// ==============================
-// SECURITY CHECK (SMART VERSION)
-// ==============================
+// =====================================
+// ADMIN CHECK
+// =====================================
+
 onAuthStateChanged(auth, (user) => {
+
     if (!user) {
+
         window.location.href = "login.html";
         return;
+
     }
-    
-    const currentUserEmail = user.email.trim().toLowerCase();
-    const adminEmailToMatch = ADMIN_EMAIL.trim().toLowerCase();
-    
-    if (currentUserEmail !== adminEmailToMatch) {
-        alert("Access Denied! System is currently seeing this email: " + currentUserEmail);
-        window.location.href = "login.html"; 
+
+    if (user.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+
+        alert("Access Denied");
+
+        window.location.href = "login.html";
+
         return;
+
     }
-    
-    loadDashboardStats();
+
+    loadDashboard();
+
 });
 
-// ==============================
-// FETCH DASHBOARD STATS
-// ==============================
-async function loadDashboardStats() {
+// =====================================
+// LOAD DASHBOARD
+// =====================================
+
+async function loadDashboard() {
+
     try {
-        const assignmentsSnap = await getDocs(collection(db, "assignments"));
-        totalAssignmentsEl.textContent = assignmentsSnap.size;
 
-        const submissionsSnap = await getDocs(collection(db, "submissions"));
-        let pendingCount = 0;
-        let approvedCount = 0;
+        // Assignments
 
-        submissionsSnap.forEach((doc) => {
+        const assignmentSnap = await getDocs(collection(db, "assignments"));
+
+        totalAssignmentsEl.textContent = assignmentSnap.size;
+
+        // Submissions
+
+        const submissionSnap = await getDocs(collection(db, "submissions"));
+
+        let pending = 0;
+        let approved = 0;
+        let rejected = 0;
+
+        const students = new Set();
+
+        submissionSnap.forEach((doc)=>{
+
             const data = doc.data();
-            if (!data.status || data.status === "Pending") {
-                pendingCount++;
-            } else if (data.status === "Approved") {
-                approvedCount++;
+
+            if(data.studentEmail){
+
+                students.add(data.studentEmail.toLowerCase());
+
             }
+
+            if(data.status==="Approved"){
+
+                approved++;
+
+            }
+            else if(data.status==="Rejected"){
+
+                rejected++;
+
+            }
+            else{
+
+                pending++;
+
+            }
+
         });
 
-        pendingSubmissionsEl.textContent = pendingCount;
-        approvedSubmissionsEl.textContent = approvedCount;
+        pendingSubmissionsEl.textContent = pending;
 
-    } catch (error) {
-        console.error("Error loading stats:", error);
+        approvedSubmissionsEl.textContent = approved;
+
+        rejectedSubmissionsEl.textContent = rejected;
+
+        totalStudentsEl.textContent = students.size;
+
     }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
 }
 
-// ==============================
-// LOGOUT FUNCTION
-// ==============================
-if (logoutBtn) {
-    logoutBtn.addEventListener("click", async () => {
-        try {
-            await signOut(auth);
-            window.location.href = "login.html";
-        } catch (error) {
-            console.error("Logout Error:", error);
-            alert("Logout failed: " + error.message);
-        }
-    });
-}
+// =====================================
+// LOGOUT
+// =====================================
+
+logoutBtn.addEventListener("click",async()=>{
+
+    await signOut(auth);
+
+    window.location.href="login.html";
+
+});
