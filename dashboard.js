@@ -20,10 +20,18 @@ const dashboardTable = document.getElementById("dashboardTable");
 
 onAuthStateChanged(auth, async (user) => {
 
+    console.log("User Object:", user);
+
     if (!user) {
+
+        console.log("User NOT Logged In");
+
         window.location.href = "login.html";
         return;
+
     }
+
+    console.log("Logged In Email:", user.email);
 
     loadDashboard(user.email);
 
@@ -31,45 +39,71 @@ onAuthStateChanged(auth, async (user) => {
 
 async function loadDashboard(email) {
 
+    console.log("Dashboard Loading...");
+
     dashboardTable.innerHTML = "";
 
     let submitted = 0;
     let approved = 0;
     let pending = 0;
 
-    // Total Assignments
-    const assignmentSnapshot = await getDocs(collection(db, "assignments"));
-    totalAssignments.textContent = assignmentSnapshot.size;
+    try {
 
-    // Student Submissions
-    const q = query(
-        collection(db, "submissions"),
-        where("studentEmail", "==", email)
-    );
+        // Total Assignments
 
-    const snapshot = await getDocs(q);
+        const assignmentSnapshot = await getDocs(collection(db, "assignments"));
 
-    submitted = snapshot.size;
+        console.log("Assignments:", assignmentSnapshot.size);
 
-    snapshot.forEach((doc) => {
+        totalAssignments.textContent = assignmentSnapshot.size;
 
-        const data = doc.data();
+        // Student Submissions
 
-        if (data.status === "Approved") approved++;
-        if (data.status === "Pending") pending++;
+        const q = query(
+            collection(db, "submissions"),
+            where("studentEmail", "==", email)
+        );
 
-        dashboardTable.innerHTML += `
-        <tr>
-            <td>${data.assignmentId}</td>
-            <td>${data.status}</td>
-            <td>${data.submittedAt}</td>
-        </tr>
-        `;
+        const snapshot = await getDocs(q);
 
-    });
+        console.log("Submissions:", snapshot.size);
 
-    submittedAssignments.textContent = submitted;
-    approvedAssignments.textContent = approved;
-    pendingAssignments.textContent = pending;
+        submitted = snapshot.size;
+
+        snapshot.forEach((doc) => {
+
+            const data = doc.data();
+
+            console.log(data);
+
+            if (data.status === "Approved") approved++;
+
+            if (data.status === "Pending") pending++;
+
+            dashboardTable.innerHTML += `
+
+            <tr>
+
+                <td>${data.assignmentId}</td>
+
+                <td>${data.status}</td>
+
+                <td>${data.submittedAt}</td>
+
+            </tr>
+
+            `;
+
+        });
+
+        submittedAssignments.textContent = submitted;
+        approvedAssignments.textContent = approved;
+        pendingAssignments.textContent = pending;
+
+    } catch (error) {
+
+        console.error("Dashboard Error:", error);
+
+    }
 
 }
