@@ -57,18 +57,52 @@ async function loadSubmissions() {
                     <a href="${data.assignmentLink}" target="_blank" class="btn-link">
                         <i class="fas fa-external-link-alt"></i> Open
                     </a>
-                </td>
-                <td class="action-btns">
-                    <button class="btn-approve" onclick="approveSubmission('${document.id}')" title="Approve">
-                        <i class="fas fa-check"></i>
-                    </button>
-                    <button class="btn-reject" onclick="rejectSubmission('${document.id}')" title="Reject">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <button class="btn-delete" onclick="deleteSubmission('${document.id}')" title="Delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
+               <td>
+    <textarea
+        id="pros-${document.id}"
+        placeholder="Pros..."
+        rows="3"
+        style="width:180px;"
+    >${data.pros || ""}</textarea>
+</td>
+
+<td>
+    <textarea
+        id="cons-${document.id}"
+        placeholder="Needs Improvement..."
+        rows="3"
+        style="width:180px;"
+    >${data.cons || ""}</textarea>
+</td>
+
+<td>
+    <textarea
+        id="feedback-${document.id}"
+        placeholder="Overall Feedback..."
+        rows="3"
+        style="width:220px;"
+    >${data.feedback || ""}</textarea>
+</td>
+
+<td class="action-btns">
+
+    <button onclick="saveFeedback('${document.id}')">
+        💾 Save
+    </button>
+
+    <button class="btn-approve" onclick="approveSubmission('${document.id}')">
+        ✅
+    </button>
+
+    <button class="btn-reject" onclick="rejectSubmission('${document.id}')">
+        ❌
+    </button>
+
+    <button class="btn-delete" onclick="deleteSubmission('${document.id}')">
+        🗑
+    </button>
+
+</td>
             </tr>
             `;
         });
