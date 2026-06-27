@@ -18,7 +18,7 @@ const form = document.getElementById("assignmentForm");
 const title = document.getElementById("title");
 const description = document.getElementById("description");
 const dueDate = document.getElementById("dueDate");
-const download = document.getElementById("download");
+const download = document.getElementById("downloadLink");
 const message = document.getElementById("message");
 const assignmentTable = document.getElementById("assignmentTable");
 
@@ -69,14 +69,13 @@ description:description.value,
 
 dueDate:dueDate.value,
 
-download:download.value,
+downloadLink:download.value,
 
 status:"Active",
 
 createdAt:new Date().toISOString()
 
 });
-
 message.style.color="green";
 
 message.textContent="Assignment Published Successfully!";
