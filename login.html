@@ -27,7 +27,9 @@ alt="SRO Academy Logo">
 <p class="portal-text">
     Student Login Portal
 </p>
-
+<p class="login-subtitle">
+    Continue your learning journey with SRO Academy.
+</p>
     <form id="loginForm">
 
         <input
@@ -36,15 +38,27 @@ alt="SRO Academy Logo">
         placeholder="Email Address"
         required>
 
-        <input
-        type="password"
-        id="password"
-        placeholder="Password"
-        required>
+      <div class="password-box">
 
-        <button type="submit" class="login-btn">
-            Login
-        </button>
+    <input
+    type="password"
+    id="password"
+    placeholder="Password"
+    required>
+
+    <span id="togglePassword" class="toggle-password">
+        👁
+    </span>
+
+</div>
+
+      <button type="submit" class="login-btn">
+
+    <span id="loginText">
+        Login to Academy
+    </span>
+
+</button>
 
     </form>
 
