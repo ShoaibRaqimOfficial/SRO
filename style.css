@@ -2788,82 +2788,20 @@ font-size:30px;
 
 .notice-popup-content p{
 
-font-size:17px;
+font-size:18px;
 
-line-height:1.9;
+line-height:2;
 
 color:#444;
 
-}
+text-align:justify;
 
-#closeNotice{
+word-break:normal;
 
-position:absolute;
+overflow-wrap:break-word;
 
-top:15px;
+white-space:normal;
 
-right:20px;
-
-font-size:34px;
-
-cursor:pointer;
-
-font-weight:bold;
-
-color:#666;
-
-transition:.3s;
-
-}
-
-#closeNotice:hover{
-
-color:red;
-
-transform:rotate(90deg);
-
-}
-
-@keyframes popupShow{
-
-from{
-
-opacity:0;
-
-transform:scale(.9);
-
-}
-
-to{
-
-opacity:1;
-
-transform:scale(1);
-
-}
-
-}
-
-@media(max-width:768px){
-
-.notice-popup-content{
-
-margin:20px;
-
-padding:22px;
-
-}
-
-.notice-popup-content h2{
-
-font-size:24px;
-
-}
-
-.notice-popup-content p{
-
-font-size:15px;
-
-}
+direction:rtl;
 
 }
