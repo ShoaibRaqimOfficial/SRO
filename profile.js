@@ -83,7 +83,8 @@ if (profileUpload.files.length > 0) {
     );
 
     const result = await upload.json();
-
+console.log(result);
+alert(JSON.stringify(result));
     imageUrl = result.url;
 }
      await updateDoc(doc(db, "students", currentUser.uid), {
