@@ -641,39 +641,32 @@ left:150%;
 
 /* ================= LOGIN ================= */
 
-.login-page{
+.login-logo{
 
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-min-height:100vh;
-
-background:
-
-linear-gradient(135deg,#2563eb,#1e3a8a);
-
-padding:30px;
+width:120px;
+height:auto;
+display:block;
+margin:0 auto 20px;
 
 }
-
 .login-box{
 
-width:100%;
-
+width:90%;
 max-width:430px;
 
-background:white;
+padding:40px 30px;
 
-padding:45px;
+background:rgba(255,255,255,.15);
 
-border-radius:20px;
+backdrop-filter:blur(18px);
 
-box-shadow:
+border-radius:25px;
 
-0 25px 60px rgba(0,0,0,.15);
+box-shadow:0 20px 60px rgba(0,0,0,.25);
+
+text-align:center;
+
+margin:auto;
 
 }
 
@@ -2627,13 +2620,13 @@ animation:logoFloat 3s infinite ease-in-out;
 
 .academy-title{
 
-font-size:34px;
+font-size:38px;
 
 font-weight:700;
 
-color:#fff;
+color:#ffffff;
 
-margin-bottom:6px;
+margin-bottom:10px;
 
 }
 
@@ -2641,11 +2634,11 @@ margin-bottom:6px;
 
 .portal-text{
 
-color:#EAF2FF;
+font-size:18px;
 
-font-size:17px;
+color:#ffffff;
 
-margin-bottom:5px;
+margin-bottom:8px;
 
 }
 
@@ -2653,14 +2646,15 @@ margin-bottom:5px;
 
 .login-subtitle{
 
-color:#dbeafe;
+font-size:15px;
 
-font-size:14px;
+color:#EAF2FF;
 
-margin-bottom:30px;
+margin-bottom:28px;
+
+line-height:1.6;
 
 }
-
 /* Inputs */
 
 .login-box input{
@@ -2830,6 +2824,57 @@ font-size:28px;
 flex-direction:column;
 
 gap:12px;
+
+}
+
+}
+@media (max-width:768px){
+
+.login-box{
+
+width:92%;
+
+padding:35px 25px;
+
+}
+
+.login-logo{
+
+width:100px;
+
+}
+
+.academy-title{
+
+font-size:30px;
+
+}
+
+.portal-text{
+
+font-size:18px;
+
+}
+
+.login-subtitle{
+
+font-size:15px;
+
+}
+
+.login-box input{
+
+font-size:16px;
+
+padding:15px;
+
+}
+
+.login-btn{
+
+padding:15px;
+
+font-size:18px;
 
 }
 
