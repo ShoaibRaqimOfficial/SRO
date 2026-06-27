@@ -1388,60 +1388,45 @@ font-size:18px;
 
 }
 
-@media(max-width:768px){
+@media (max-width:768px){
 
-.nav-container{
+.notice-popup-content{
 
-flex-direction:column;
+width:94%;
 
-gap:20px;
+padding:22px;
 
-}
+margin:18px auto;
 
-.nav-links{
-
-flex-wrap:wrap;
-
-justify-content:center;
-
-gap:15px;
+max-height:88vh;
 
 }
 
-.buttons{
+.notice-popup-content h2{
 
-flex-direction:column;
-
-}
-
-.btn{
-
-width:100%;
+font-size:30px;
 
 }
 
-.search-box{
+.notice-popup-content p{
 
-flex-direction:column;
+font-size:20px;
 
-}
-
-.action-btns{
-
-flex-direction:column;
+line-height:2.5;
 
 }
 
-table{
+#closeNotice{
 
-display:block;
+font-size:30px;
 
-overflow-x:auto;
+top:15px;
+
+left:15px;
 
 }
 
 }
-
 @media(max-width:600px){
 
 .course-grid,
