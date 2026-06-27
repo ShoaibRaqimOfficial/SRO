@@ -9,7 +9,6 @@ const loginForm = document.getElementById("loginForm");
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 const message = document.getElementById("message");
-const createAccount = document.getElementById("createAccount");
 const forgotPassword = document.getElementById("forgotPassword");
 // ==============================
 // ADMIN EMAIL CONFIGURATION
@@ -49,24 +48,7 @@ loginForm.addEventListener("submit", async (e) => {
 });
 
 // Create Account
-createAccount.addEventListener("click", async (e) => {
-    e.preventDefault();
 
-    try {
-        await createUserWithEmailAndPassword(
-            auth,
-            email.value,
-            password.value
-        );
-
-        message.style.color = "green";
-        message.textContent = "Account Created Successfully!";
-
-    } catch (error) {
-        message.style.color = "red";
-        message.textContent = error.message;
-    }
-});
 // ==============================
 // FORGOT PASSWORD
 // ==============================
