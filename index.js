@@ -192,4 +192,3 @@ window.submitTask = async function (assignmentId, title) {
     input.click();
 
 };
-};
