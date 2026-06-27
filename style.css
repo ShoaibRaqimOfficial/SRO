@@ -2526,3 +2526,83 @@ color:white;
 }
 
 /* ========= END OF STYLE.CSS ========= */
+/* =====================================
+   ANNOUNCEMENT BAR
+===================================== */
+
+.announcement-bar{
+
+width:100%;
+background:linear-gradient(90deg,#0f4cdb,#2563eb,#0f4cdb);
+overflow:hidden;
+padding:12px 0;
+box-shadow:0 3px 12px rgba(0,0,0,.18);
+position:relative;
+z-index:999;
+
+}
+
+.announcement-content{
+
+display:flex;
+align-items:center;
+white-space:nowrap;
+animation:marquee 35s linear infinite;
+padding-left:100%;
+
+}
+
+.announcement-icon{
+
+font-size:22px;
+margin-right:18px;
+
+}
+
+.announcement-content span{
+
+color:#fff;
+font-size:15px;
+font-weight:500;
+
+}
+
+.announcement-content strong{
+
+color:#FFD54A;
+
+}
+
+@keyframes marquee{
+
+0%{
+
+transform:translateX(0);
+
+}
+
+100%{
+
+transform:translateX(-100%);
+
+}
+
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.announcement-content span{
+
+font-size:13px;
+
+}
+
+.announcement-icon{
+
+font-size:18px;
+
+}
+
+}
