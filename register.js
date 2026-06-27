@@ -72,11 +72,13 @@ registerForm.addEventListener("submit", async (e) => {
 
     }
 
-    catch (error) {
+catch (error) {
 
-        message.style.color = "red";
-        message.textContent = error.message;
+    console.error("REGISTER ERROR:", error);
 
-    }
+    message.style.color = "red";
+    message.textContent = error.message;
 
-});
+    alert(error.message);
+
+}
