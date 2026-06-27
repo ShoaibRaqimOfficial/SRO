@@ -11,10 +11,10 @@ import {
 import {
   getFirestore,
   doc,
+  setDoc,
   updateDoc,
   deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyD8O5zS5-nxLm2EqL6yf9ANw7H9UF0dPJE",
   authDomain: "sro-academy-7454d.firebaseapp.com",
@@ -36,6 +36,7 @@ export {
   signOut,
   onAuthStateChanged,
   doc,
+  setDoc,
   updateDoc,
   deleteDoc
 };
