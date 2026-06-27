@@ -2787,36 +2787,38 @@ box-sizing:border-box;
 
 .notice-popup-content h2{
 
-font-size:32px;
+font-family:'Noto Nastaliq Urdu', serif;
+
+font-size:36px;
 
 color:#2563eb;
 
+text-align:right;
+
 margin-bottom:20px;
 
-text-align:right;
-
 }
-
 .notice-popup-content p{
 
-font-size:18px;
+font-family:'Noto Nastaliq Urdu', serif;
 
-line-height:2;
+font-size:22px;
 
-color:#444;
+line-height:2.6;
+
+color:#333;
+
+direction:rtl;
 
 text-align:right;
 
-direction:rtl;
+margin:0;
 
 word-break:normal;
 
 overflow-wrap:break-word;
 
-margin:0;
-
 }
-
 #closeNotice{
 
 position:absolute;
