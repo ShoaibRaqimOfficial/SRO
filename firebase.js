@@ -12,6 +12,7 @@ import {
   getFirestore,
   doc,
   setDoc,
+  getDoc,
   updateDoc,
   deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
@@ -37,6 +38,7 @@ export {
   onAuthStateChanged,
   doc,
   setDoc,
+  getDoc,
   updateDoc,
   deleteDoc
 };
