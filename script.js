@@ -1,7 +1,8 @@
 import {
   auth,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail
 } from "./firebase.js";
 
 const loginForm = document.getElementById("loginForm");
@@ -9,7 +10,7 @@ const email = document.getElementById("email");
 const password = document.getElementById("password");
 const message = document.getElementById("message");
 const createAccount = document.getElementById("createAccount");
-
+const forgotPassword = document.getElementById("forgotPassword");
 // ==============================
 // ADMIN EMAIL CONFIGURATION
 // ==============================
@@ -65,4 +66,38 @@ createAccount.addEventListener("click", async (e) => {
         message.style.color = "red";
         message.textContent = error.message;
     }
+});
+// ==============================
+// FORGOT PASSWORD
+// ==============================
+
+forgotPassword.addEventListener("click", async (e) => {
+
+    e.preventDefault();
+
+    if (email.value.trim() === "") {
+
+        message.style.color = "red";
+        message.textContent = "Enter your email first.";
+        return;
+
+    }
+
+    try {
+
+        await sendPasswordResetEmail(auth, email.value);
+
+        message.style.color = "green";
+        message.textContent =
+        "Password reset email has been sent. Check your inbox.";
+
+    }
+
+    catch (error) {
+
+        message.style.color = "red";
+        message.textContent = error.message;
+
+    }
+
 });
