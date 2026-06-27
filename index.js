@@ -121,7 +121,7 @@ window.submitTask = async function (assignmentId, title) {
 
     const input = document.createElement("input");
     input.type = "file";
-    input.accept = ".pdf,.zip,.rar,.doc,.docx";
+   input.accept = "image/*,video/*,audio/*,.pdf,.zip,.rar,.7z,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.psd,.ai,.aep,.prproj";
 
     input.onchange = async () => {
 
