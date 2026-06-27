@@ -38,6 +38,8 @@ export {
   signOut,
   onAuthStateChanged,
   doc,
+  setDoc,
+  getDoc,
   updateDoc,
   deleteDoc
 };
