@@ -11,6 +11,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const profileImage = document.getElementById("profileImage");
+const profileUpload = document.getElementById("profileUpload");
+
 const fullName = document.getElementById("fullName");
 const email = document.getElementById("email");
 const phone = document.getElementById("phone");
@@ -65,18 +67,38 @@ onAuthStateChanged(auth, async (user) => {
 saveProfile.addEventListener("click", async () => {
 
     try {
+let imageUrl = profileImage.src;
 
-        await updateDoc(doc(db, "students", currentUser.uid), {
+if (profileUpload.files.length > 0) {
 
-            fullName: fullName.value,
-            phone: phone.value,
-            dob: dob.value
+    const formData = new FormData();
+    formData.append("file", profileUpload.files[0]);
 
-        });
+    const upload = await fetch(
+        "https://twilight-queen-9702.westanking2.workers.dev/upload",
+        {
+            method: "POST",
+            body: formData
+        }
+    );
 
-        message.style.color = "green";
-        message.textContent = "Profile Updated Successfully.";
+    const result = await upload.json();
 
+    imageUrl = result.url;
+}
+     await updateDoc(doc(db, "students", currentUser.uid), {
+
+    fullName: fullName.value,
+    phone: phone.value,
+    dob: dob.value,
+    profileImage: imageUrl
+
+});
+
+profileImage.src = imageUrl;
+
+message.style.color = "green";
+message.textContent = "Profile Updated Successfully.";
     }
 
     catch (error) {
