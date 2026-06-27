@@ -193,39 +193,4 @@ window.submitTask = async function (assignmentId, title) {
 
 };
 // =========================
-// NOTICE POPUP
-// =========================
 
-const readBtn = document.getElementById("readNoticeBtn");
-const popup = document.getElementById("noticePopup");
-const closeBtn = document.getElementById("closeNotice");
-
-if(readBtn){
-
-readBtn.onclick = () => {
-
-popup.style.display = "block";
-
-};
-
-}
-
-if(closeBtn){
-
-closeBtn.onclick = () => {
-
-popup.style.display = "none";
-
-};
-
-}
-
-window.onclick = function(e){
-
-if(e.target == popup){
-
-popup.style.display = "none";
-
-}
-
-};
