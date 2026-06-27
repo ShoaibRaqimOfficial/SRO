@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Profile | SRO Academy</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="login-page">
+
+<div class="login-box">
+
+<h1>My Profile</h1>
+
+<p>Student Information</p>
+
+<img
+id="profileImage"
+src="https://ui-avatars.com/api/?name=Student&background=2563eb&color=fff&size=200"
+style="width:120px;height:120px;border-radius:50%;object-fit:cover;margin:20px auto;display:block;">
+
+<input
+type="file"
+id="profileUpload"
+accept="image/*">
+
+<input
+type="text"
+id="fullName"
+placeholder="Full Name">
+
+<input
+type="email"
+id="email"
+disabled>
+
+<input
+type="text"
+id="phone"
+placeholder="Mobile Number">
+
+<input
+type="date"
+id="dob">
+
+<button
+id="saveProfile"
+class="login-btn">
+Save Changes
+</button>
+
+<p id="message"></p>
+
+</div>
+
+<script type="module" src="profile.js"></script>
+
+</body>
+
+</html>
