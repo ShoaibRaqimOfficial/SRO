@@ -76,7 +76,7 @@ async function loadAssignments(user) {
 
                 <div class="assignment-buttons">
 
-                    <a href="${data.download}"
+                 <a href="${data.downloadLink}"
                        target="_blank"
                        class="download-btn">
                        Download Task
