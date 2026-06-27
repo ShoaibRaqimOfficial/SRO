@@ -2786,22 +2786,23 @@ font-size:30px;
 
 }
 
-.notice-popup-content p{
+.notice-popup-content{
 
-font-size:18px;
+width:92%;
+max-width:600px;
 
-line-height:2;
+max-height:80vh;
 
-color:#444;
+overflow-y:auto;
 
-text-align:justify;
+background:#fff;
 
-word-break:normal;
+padding:30px;
 
-overflow-wrap:break-word;
+border-radius:18px;
 
-white-space:normal;
+box-shadow:0 20px 60px rgba(0,0,0,.35);
 
-direction:rtl;
+position:relative;
 
 }
