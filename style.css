@@ -2511,3 +2511,326 @@ color:white;
 }
 
 /* ========= END OF STYLE.CSS ========= */
+/* ==========================================
+        SRO ACADEMY LOGIN PAGE V2
+========================================== */
+
+.login-page{
+
+margin:0;
+
+padding:0;
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:linear-gradient(135deg,#0F52BA,#2563EB,#3B82F6);
+
+overflow:hidden;
+
+font-family:'Segoe UI',sans-serif;
+
+position:relative;
+
+}
+
+/* Floating Background */
+
+.login-page::before{
+
+content:"";
+
+position:absolute;
+
+width:320px;
+
+height:320px;
+
+background:rgba(255,255,255,.08);
+
+border-radius:50%;
+
+top:-120px;
+
+left:-100px;
+
+animation:float1 7s infinite ease-in-out;
+
+}
+
+.login-page::after{
+
+content:"";
+
+position:absolute;
+
+width:260px;
+
+height:260px;
+
+background:rgba(255,255,255,.08);
+
+border-radius:50%;
+
+bottom:-100px;
+
+right:-70px;
+
+animation:float2 8s infinite ease-in-out;
+
+}
+
+/* Login Card */
+
+.login-box{
+
+width:100%;
+
+max-width:430px;
+
+padding:45px 35px;
+
+background:rgba(255,255,255,.14);
+
+backdrop-filter:blur(18px);
+
+border-radius:24px;
+
+box-shadow:0 20px 60px rgba(0,0,0,.25);
+
+text-align:center;
+
+position:relative;
+
+z-index:2;
+
+}
+
+/* Logo */
+
+.login-logo{
+
+width:95px;
+
+margin-bottom:12px;
+
+animation:logoFloat 3s infinite ease-in-out;
+
+}
+
+/* Academy Title */
+
+.academy-title{
+
+font-size:34px;
+
+font-weight:700;
+
+color:#fff;
+
+margin-bottom:6px;
+
+}
+
+/* Portal */
+
+.portal-text{
+
+color:#EAF2FF;
+
+font-size:17px;
+
+margin-bottom:5px;
+
+}
+
+/* Subtitle */
+
+.login-subtitle{
+
+color:#dbeafe;
+
+font-size:14px;
+
+margin-bottom:30px;
+
+}
+
+/* Inputs */
+
+.login-box input{
+
+width:100%;
+
+padding:16px;
+
+border:none;
+
+border-radius:12px;
+
+margin-bottom:18px;
+
+font-size:15px;
+
+outline:none;
+
+box-sizing:border-box;
+
+}
+
+/* Password */
+
+.password-box{
+
+position:relative;
+
+}
+
+.toggle-password{
+
+position:absolute;
+
+right:18px;
+
+top:50%;
+
+transform:translateY(-50%);
+
+cursor:pointer;
+
+font-size:18px;
+
+}
+
+/* Button */
+
+.login-btn{
+
+width:100%;
+
+padding:16px;
+
+border:none;
+
+border-radius:12px;
+
+background:#ff7a00;
+
+color:#fff;
+
+font-size:17px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.login-btn:hover{
+
+background:#ff9500;
+
+transform:translateY(-2px);
+
+box-shadow:0 12px 30px rgba(255,122,0,.35);
+
+}
+
+/* Links */
+
+.login-links{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-top:18px;
+
+}
+
+.login-links a{
+
+color:#fff;
+
+text-decoration:none;
+
+font-size:14px;
+
+}
+
+/* Message */
+
+#message{
+
+margin-top:20px;
+
+font-weight:600;
+
+}
+
+/* Animations */
+
+@keyframes float1{
+
+50%{
+
+transform:translateY(25px);
+
+}
+
+}
+
+@keyframes float2{
+
+50%{
+
+transform:translateY(-25px);
+
+}
+
+}
+
+@keyframes logoFloat{
+
+50%{
+
+transform:translateY(-8px);
+
+}
+
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.login-box{
+
+margin:20px;
+
+padding:35px 25px;
+
+}
+
+.academy-title{
+
+font-size:28px;
+
+}
+
+.login-links{
+
+flex-direction:column;
+
+gap:12px;
+
+}
+
+}
