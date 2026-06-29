@@ -73,33 +73,29 @@ right:-100px;
 
 /* Card */
 
+@media (max-width:768px){
+
+body{
+
+padding:20px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
 .login-box{
-
-position:relative;
-
-z-index:10;
 
 width:100%;
 
-max-width:430px;
+max-width:380px;
 
 margin:0 auto;
 
-left:0;
-
-right:0;
-
-padding:40px 35px;
-
-background:rgba(255,255,255,.18);
-
-backdrop-filter:blur(20px);
-
-border-radius:25px;
-
-box-shadow:0 20px 60px rgba(0,0,0,.25);
-
-text-align:center;
+}
 
 }
 
