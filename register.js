@@ -84,3 +84,37 @@ catch (error) {
 }
 
 });
+const togglePassword=document.getElementById("togglePassword");
+const toggleConfirmPassword=document.getElementById("toggleConfirmPassword");
+
+togglePassword.addEventListener("click",()=>{
+
+if(password.type==="password"){
+
+password.type="text";
+togglePassword.textContent="Hide";
+
+}else{
+
+password.type="password";
+togglePassword.textContent="Show";
+
+}
+
+});
+
+toggleConfirmPassword.addEventListener("click",()=>{
+
+if(confirmPassword.type==="password"){
+
+confirmPassword.type="text";
+toggleConfirmPassword.textContent="Hide";
+
+}else{
+
+confirmPassword.type="password";
+toggleConfirmPassword.textContent="Show";
+
+}
+
+});
