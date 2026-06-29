@@ -193,60 +193,35 @@ opacity:1;
 /* Password */
 
 .password-box{
+    position:relative;
+}
 
-position:relative;
-
+.password-box input{
+    padding-right:70px;
 }
 
 .toggle-password{
-
-position:absolute;
-
-right:18px;
-
-top:50%;
-
-transform:translateY(-50%);
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-height:100%;
-
-font-size:12px;
-
-font-weight:700;
-
-color:#2563EB;
-
-cursor:pointer;
-
-user-select:none;
-
-text-transform:uppercase;
-
-letter-spacing:.5px;
-
-line-height:1;
-
-}
-user-select:none;
-
-text-transform:uppercase;
-
-letter-spacing:.3px;
-
-transition:.25s;
-
+    position:absolute;
+    right:18px;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:100%;
+    font-size:13px;
+    font-weight:700;
+    color:#2563EB;
+    cursor:pointer;
+    user-select:none;
+    text-transform:uppercase;
+    letter-spacing:.3px;
+    line-height:1;
+    transition:.25s;
 }
 
 .toggle-password:hover{
-
-color:#1E40AF;
-
+    color:#1E40AF;
 }
 
 /* Button */
