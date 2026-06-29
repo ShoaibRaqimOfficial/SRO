@@ -1,1 +1,591 @@
+/* ===================================================
+   SRO Academy V2
+   Premium Register Page
+   Part 1
+=================================================== */
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:25px;
+
+    background:linear-gradient(
+        135deg,
+        #1E40AF 0%,
+        #2563EB 50%,
+        #3B82F6 100%
+    );
+
+    overflow-x:hidden;
+    position:relative;
+
+}
+
+/* Floating Circles */
+
+body::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:420px;
+    height:420px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    top:-160px;
+    left:-160px;
+
+    filter:blur(10px);
+
+}
+
+body::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:340px;
+    height:340px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    bottom:-120px;
+    right:-120px;
+
+    filter:blur(10px);
+
+}
+
+/* ==========================
+   Register Card
+========================== */
+
+.login-box{
+
+    position:relative;
+
+    z-index:10;
+
+    width:100%;
+    max-width:460px;
+
+    padding:42px 36px;
+
+    background:rgba(255,255,255,.12);
+
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    border-radius:24px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.28);
+
+    text-align:center;
+
+}
+
+/* ==========================
+   Logo
+========================== */
+
+.login-logo{
+
+    width:95px;
+
+    display:block;
+
+    margin:0 auto 20px;
+
+}
+
+/* ==========================
+   Heading
+========================== */
+
+.academy-title{
+
+    color:#ffffff;
+
+    font-size:36px;
+
+    font-weight:700;
+
+    margin-bottom:8px;
+
+}
+
+.portal-text{
+
+    color:#ffffff;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    margin-bottom:8px;
+
+}
+
+.login-subtitle{
+
+    color:#EAF2FF;
+
+    font-size:15px;
+
+    line-height:1.7;
+
+    margin-bottom:30px;
+
+}
+
+/* ==========================
+   Form
+========================== */
+
+#registerForm{
+
+    width:100%;
+
+}
+
+/* ==========================
+   Inputs
+========================== */
+
+#registerForm input{
+
+    width:100%;
+
+    height:58px;
+
+    padding:0 20px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:16px;
+
+    background:#ffffff;
+
+    color:#222;
+
+    font-size:16px;
+
+    margin-bottom:18px;
+
+    transition:.25s;
+
+}
+
+#registerForm input:focus{
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.25);
+
+}
+
+#registerForm input::placeholder{
+
+    color:#777;
+
+}
+
+/* Date */
+
+input[type="date"]{
+
+    color:#666;
+
+}
+
+/* Password */
+
+.password-box{
+
+    position:relative;
+
+}
+
+.password-box input{
+
+    padding-right:78px;
+
+}
+
+.toggle-password{
+
+    position:absolute;
+
+    right:18px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#2563EB;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    user-select:none;
+
+    text-transform:uppercase;
+
+    transition:.25s;
+
+}
+
+.toggle-password:hover{
+
+    color:#1E40AF;
+
+}
+/* ==========================================
+   Button
+========================================== */
+
+.login-btn{
+
+    width:100%;
+
+    height:58px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:#FF7A00;
+
+    color:#ffffff;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.30s;
+
+    margin-top:6px;
+
+}
+
+.login-btn:hover{
+
+    background:#ff8d19;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 15px 35px rgba(255,122,0,.35);
+
+}
+
+.login-btn:active{
+
+    transform:translateY(0);
+
+}
+
+/* ==========================================
+   Links
+========================================== */
+
+.login-links{
+
+    margin-top:24px;
+
+    text-align:center;
+
+}
+
+.login-links a{
+
+    color:#ffffff;
+
+    text-decoration:none;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.login-links a:hover{
+
+    color:#FFD9B3;
+
+}
+
+/* ==========================================
+   Message
+========================================== */
+
+#message{
+
+    min-height:22px;
+
+    margin-top:18px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#ffffff;
+
+    text-align:center;
+
+}
+
+/* ==========================================
+   Input Hover
+========================================== */
+
+#registerForm input:hover{
+
+    transform:translateY(-1px);
+
+}
+
+.login-btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================================
+   Tablet
+========================================== */
+
+@media (max-width:768px){
+
+body{
+
+    padding:24px;
+
+    align-items:flex-start;
+
+}
+
+.login-box{
+
+    margin:30px auto;
+
+    max-width:400px;
+
+    padding:34px 24px;
+
+    border-radius:22px;
+
+}
+
+.login-logo{
+
+    width:88px;
+
+}
+
+.academy-title{
+
+    font-size:31px;
+
+}
+
+.portal-text{
+
+    font-size:17px;
+
+}
+
+.login-subtitle{
+
+    font-size:14px;
+
+    margin-bottom:28px;
+
+}
+
+#registerForm input{
+
+    height:56px;
+
+    font-size:15px;
+
+}
+
+.login-btn{
+
+    height:56px;
+
+    font-size:17px;
+
+}
+
+}
+
+/* ==========================================
+   Mobile
+========================================== */
+
+@media (max-width:480px){
+
+body{
+
+    padding:18px;
+
+}
+
+.login-box{
+
+    width:100%;
+
+    max-width:100%;
+
+    padding:28px 20px;
+
+    border-radius:20px;
+
+}
+
+.login-logo{
+
+    width:82px;
+
+}
+
+.academy-title{
+
+    font-size:28px;
+
+}
+
+.portal-text{
+
+    font-size:16px;
+
+}
+
+.login-subtitle{
+
+    font-size:13px;
+
+    line-height:1.6;
+
+}
+
+#registerForm input{
+
+    height:54px;
+
+    font-size:15px;
+
+    margin-bottom:16px;
+
+}
+
+.toggle-password{
+
+    right:16px;
+
+    font-size:12px;
+
+}
+
+.login-btn{
+
+    height:54px;
+
+    font-size:16px;
+
+}
+
+.login-links{
+
+    margin-top:20px;
+
+}
+
+.login-links a{
+
+    font-size:14px;
+
+}
+
+}
+
+/* ==========================================
+   Large Desktop
+========================================== */
+
+@media (min-width:1200px){
+
+.login-box{
+
+    max-width:470px;
+
+}
+
+}
+
+/* ==========================================
+   Smooth Animation
+========================================== */
+
+.login-box{
+
+    animation:fadeUp .45s ease;
+
+}
+
+@keyframes fadeUp{
+
+from{
+
+    opacity:0;
+
+    transform:translateY(20px);
+
+}
+
+to{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+}
