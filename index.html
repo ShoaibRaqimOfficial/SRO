@@ -2,102 +2,972 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Shoaib Raqim Official Academy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
+    <title>SRO Academy | Learn Video Editing & AI Tools</title>
+
+    <meta name="description"
+        content="Learn Professional Video Editing, YouTube Automation, TikTok Automation, AI Tools, Graphic Design and Content Creation with One-to-One Support at SRO Academy.">
+
+    <link rel="stylesheet" href="css/home.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
 </head>
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
+<!-- ===========================
+        HEADER
+============================ -->
 
-<nav class="navbar">
-
-    <div class="container nav-container">
-
-      <div class="logo" style="display:flex;align-items:center;gap:12px;">
-
-    <img
-        src="logo.png"
-        alt="SRO Academy"
-        style="
-            width:55px;
-            height:55px;
-            object-fit:contain;
-        "
-    >
-
-    <span>SRO Academy</span>
-
-</div>
-
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#assignmentGrid">Assignments</a></li>
-           <li><a href="my-submissions.html">My Submissions</a></li>
-<li><a href="profile.html">Profile</a></li>
-<li><a href="login.html">Logout</a></li>
-        </ul>
-
-    </div>
-
-</nav>
-
-<!-- ================= HERO ================= -->
-
-<header class="hero">
+<header class="header">
 
     <div class="container">
 
-        <span class="badge">🚀 AI Powered Learning Platform</span>
+        <nav class="navbar">
 
-        <h1>Shoaib Raqim Official Academy</h1>
+            <a href="index.html" class="logo">
 
-        <p>
-            Master Professional Video Editing,
-            AI Automation, Content Creation,
-            YouTube Growth and Freelancing
-            with Practical Projects.
-        </p>
+                <img
+                    src="assets/logo/logo.png"
+                    alt="SRO Academy Logo">
 
-        <div class="buttons">
+                <span>SRO Academy</span>
 
-            <a href="#assignmentGrid" class="btn primary">
-                Latest Assignments
             </a>
 
-            <a href="my-submissions.html" class="btn secondary">
-                My Submissions
-            </a>
+            <ul class="nav-menu">
 
-        </div>
+                <li>
+                    <a href="#home">Home</a>
+                </li>
+
+                <li>
+                    <a href="#courses">Courses</a>
+                </li>
+
+                <li>
+                    <a href="#why">Why Us</a>
+                </li>
+
+                <li>
+                    <a href="#reviews">Reviews</a>
+                </li>
+
+                <li>
+                    <a href="#contact">Contact</a>
+                </li>
+
+            </ul>
+
+            <div class="nav-buttons">
+
+                <a
+                    href="login.html"
+                    class="btn-login">
+
+                    Login
+
+                </a>
+
+                <a
+                    href="register.html"
+                    class="btn-register">
+
+                    Register
+
+                </a>
+
+            </div>
+
+            <button
+                class="menu-toggle"
+                id="menuToggle">
+
+                ☰
+
+            </button>
+
+        </nav>
 
     </div>
 
 </header>
 
+<!-- ===========================
+        HERO
+============================ -->
 
-<!-- ================= ASSIGNMENTS ================= -->
+<section
+    class="hero"
+    id="home">
 
-<section class="assignments">
+    <div class="container hero-grid">
 
-    <h2 class="section-title">
-        Latest Assignments
-    </h2>
+        <!-- LEFT -->
 
-    <div class="assignment-grid" id="assignmentGrid">
+        <div class="hero-content">
 
-        <!-- Firebase will load assignments here -->
+            <span class="hero-badge">
+
+                🚀 AI Powered Learning Platform
+
+            </span>
+
+            <h1>
+
+                Master
+                <span>Video Editing</span>,
+                YouTube Automation,
+                TikTok Automation &
+                AI Tools
+
+            </h1>
+
+            <p>
+
+                Learn professional Video Editing,
+                YouTube Automation,
+                TikTok Automation,
+                AI Tools,
+                Graphic Design
+                and Content Creation
+                through real projects with
+                one-to-one support.
+
+            </p>
+
+            <div class="hero-buttons">
+
+                <a
+                    href="register.html"
+                    class="primary-btn">
+
+                    Start Learning
+
+                </a>
+
+                <a
+                    href="#courses"
+                    class="secondary-btn">
+
+                    Explore Courses
+
+                </a>
+
+            </div>
+
+            <div class="hero-stats">
+
+                <div>
+
+                    <h3>5000+</h3>
+
+                    <span>Students</span>
+
+                </div>
+
+                <div>
+
+                    <h3>15+</h3>
+
+                    <span>Courses</span>
+
+                </div>
+
+                <div>
+
+                    <h3>100+</h3>
+
+                    <span>Projects</span>
+
+                </div>
+
+                <div>
+
+                    <h3>1-on-1</h3>
+
+                    <span>Support</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+
+        <div class="hero-image">
+
+            <img
+                src="assets/images/hero.png"
+                alt="SRO Academy Hero">
+
+        </div>
 
     </div>
 
 </section>
 
-</main>
+<!-- ===========================
+      FEATURED COURSES
+============================ -->
 
-<script type="module" src="index.js"></script>
+<section
+    class="courses"
+    id="courses">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>
+
+                Featured Courses
+
+            </span>
+
+            <h2>
+
+                Learn The Most
+                In-Demand Digital Skills
+
+            </h2>
+
+            <p>
+
+                Practical project-based learning
+                with one-to-one mentorship.
+
+            </p>
+
+        </div>
+
+        <div class="course-grid">
+                        <!-- Course 1 -->
+
+            <div class="course-card">
+
+                <div class="course-icon">🎬</div>
+
+                <h3>Professional Video Editing</h3>
+
+                <p>
+                    Learn Adobe Premiere Pro,
+                    CapCut, cinematic editing,
+                    transitions, color grading
+                    and professional workflows.
+                </p>
+
+            </div>
+
+            <!-- Course 2 -->
+
+            <div class="course-card">
+
+                <div class="course-icon">📺</div>
+
+                <h3>YouTube Automation</h3>
+
+                <p>
+                    Build profitable YouTube
+                    channels with SEO,
+                    scripting, thumbnails,
+                    editing and automation.
+                </p>
+
+            </div>
+
+            <!-- Course 3 -->
+
+            <div class="course-card">
+
+                <div class="course-icon">📱</div>
+
+                <h3>TikTok Automation</h3>
+
+                <p>
+                    Create viral TikTok content,
+                    understand the algorithm,
+                    automation systems and
+                    audience growth.
+                </p>
+
+            </div>
+
+            <!-- Course 4 -->
+
+            <div class="course-card">
+
+                <div class="course-icon">🤖</div>
+
+                <h3>AI Tools & Prompt Engineering</h3>
+
+                <p>
+                    Master ChatGPT,
+                    Midjourney,
+                    Leonardo AI,
+                    ElevenLabs
+                    and AI productivity.
+                </p>
+
+            </div>
+
+            <!-- Course 5 -->
+
+            <div class="course-card">
+
+                <div class="course-icon">🎨</div>
+
+                <h3>Graphic Design</h3>
+
+                <p>
+                    Design professional
+                    thumbnails,
+                    social media graphics,
+                    branding
+                    and visual identity.
+                </p>
+
+            </div>
+
+            <!-- Course 6 -->
+
+            <div class="course-card">
+
+                <div class="course-icon">🎥</div>
+
+                <h3>Content Creation Mastery</h3>
+
+                <p>
+                    Learn content planning,
+                    storytelling,
+                    audience psychology,
+                    branding and growth.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ====================================
+        WHY CHOOSE SRO
+==================================== -->
+
+<section
+class="why"
+id="why">
+
+<div class="container">
+
+<div class="section-heading">
+
+<span>
+
+Why Choose SRO Academy
+
+</span>
+
+<h2>
+
+Everything You Need
+To Build A Digital Career
+
+</h2>
+
+</div>
+
+<div class="why-grid">
+
+<div class="why-card">
+
+<div class="why-icon">🎯</div>
+
+<h3>Project Based Learning</h3>
+
+<p>
+
+Every course includes
+real practical projects
+instead of theory only.
+
+</p>
+
+</div>
+
+<div class="why-card">
+
+<div class="why-icon">👨‍🏫</div>
+
+<h3>One-to-One Support</h3>
+
+<p>
+
+Receive direct guidance
+and mentorship whenever
+you need help.
+
+</p>
+
+</div>
+
+<div class="why-card">
+
+<div class="why-icon">🤖</div>
+
+<h3>Latest AI Tools</h3>
+
+<p>
+
+Stay updated with
+modern AI workflows
+and automation systems.
+
+</p>
+
+</div>
+
+<div class="why-card">
+
+<div class="why-icon">📜</div>
+
+<h3>Certificate</h3>
+
+<p>
+
+Receive a professional
+certificate after
+successful completion.
+
+</p>
+
+</div>
+
+<div class="why-card">
+
+<div class="why-icon">📂</div>
+
+<h3>Assignments</h3>
+
+<p>
+
+Complete practical
+assignments with
+personal feedback.
+
+</p>
+
+</div>
+
+<div class="why-card">
+
+<div class="why-icon">♾️</div>
+
+<h3>Lifetime Access</h3>
+
+<p>
+
+Access your learning
+materials anytime
+without limitations.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ====================================
+        LEARNING ROADMAP
+==================================== -->
+
+<section class="roadmap">
+
+<div class="container">
+
+<div class="section-heading">
+
+<span>
+
+Learning Journey
+
+</span>
+
+<h2>
+
+Your Road To Success
+
+</h2>
+
+</div>
+
+<div class="roadmap-grid">
+
+<div class="step">
+
+<span>01</span>
+
+<h3>Register</h3>
+
+</div>
+
+<div class="step">
+
+<span>02</span>
+
+<h3>Choose Course</h3>
+
+</div>
+
+<div class="step">
+
+<span>03</span>
+
+<h3>Watch Lessons</h3>
+
+</div>
+
+<div class="step">
+
+<span>04</span>
+
+<h3>Complete Assignments</h3>
+
+</div>
+
+<div class="step">
+
+<span>05</span>
+
+<h3>Get Certificate</h3>
+
+</div>
+
+<div class="step">
+
+<span>06</span>
+
+<h3>Keep Growing</h3>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+<!-- ====================================
+        TESTIMONIALS
+==================================== -->
+
+<section
+class="testimonials"
+id="reviews">
+
+<div class="container">
+
+<div class="section-heading">
+
+<span>
+
+Student Reviews
+
+</span>
+
+<h2>
+
+Trusted By Thousands Of Students
+
+</h2>
+
+<p>
+
+Real feedback from students who transformed their skills through SRO Academy.
+
+</p>
+
+</div>
+
+<div class="testimonial-grid">
+
+<div class="testimonial-card">
+
+<div class="stars">
+
+★★★★★
+
+</div>
+
+<p>
+
+"The Video Editing course completely changed my editing skills. The practical assignments and one-to-one support were outstanding."
+
+</p>
+
+<div class="student">
+
+<img
+src="assets/images/student1.jpg"
+alt="Student">
+
+<div>
+
+<h4>Ali Khan</h4>
+
+<span>Video Editor</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="testimonial-card">
+
+<div class="stars">
+
+★★★★★
+
+</div>
+
+<p>
+
+"The AI Tools course saved me hours of work. Every lesson was practical and easy to follow."
+
+</p>
+
+<div class="student">
+
+<img
+src="assets/images/student2.jpg"
+alt="Student">
+
+<div>
+
+<h4>Ahmed Raza</h4>
+
+<span>Content Creator</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="testimonial-card">
+
+<div class="stars">
+
+★★★★★
+
+</div>
+
+<p>
+
+"I started YouTube Automation from zero. Now I understand scripting, editing, thumbnails and SEO."
+
+</p>
+
+<div class="student">
+
+<img
+src="assets/images/student3.jpg"
+alt="Student">
+
+<div>
+
+<h4>Sara Noor</h4>
+
+<span>YouTube Creator</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ====================================
+              FAQ
+==================================== -->
+
+<section
+class="faq"
+id="faq">
+
+<div class="container">
+
+<div class="section-heading">
+
+<span>
+
+Frequently Asked Questions
+
+</span>
+
+<h2>
+
+Have Questions?
+
+</h2>
+
+</div>
+
+<div class="faq-container">
+
+<div class="faq-item">
+
+<h3>
+
+Do I need any experience?
+
+</h3>
+
+<p>
+
+No. Every course starts from beginner level and gradually moves to advanced topics.
+
+</p>
+
+</div>
+
+<div class="faq-item">
+
+<h3>
+
+Will I receive a certificate?
+
+</h3>
+
+<p>
+
+Yes. Every student receives a certificate after successfully completing the course requirements.
+
+</p>
+
+</div>
+
+<div class="faq-item">
+
+<h3>
+
+Do I get one-to-one support?
+
+</h3>
+
+<p>
+
+Yes. Every enrolled student receives personal guidance whenever needed.
+
+</p>
+
+</div>
+
+<div class="faq-item">
+
+<h3>
+
+Are the courses lifetime accessible?
+
+</h3>
+
+<p>
+
+Yes. Once enrolled, you can access your course materials anytime.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ====================================
+             FINAL CTA
+==================================== -->
+
+<section
+class="cta">
+
+<div class="container">
+
+<div class="cta-box">
+
+<h2>
+
+Start Learning Today
+
+</h2>
+
+<p>
+
+Join thousands of students mastering Video Editing, YouTube Automation, TikTok Automation and AI Tools.
+
+</p>
+
+<div class="cta-buttons">
+
+<a
+href="register.html"
+class="primary-btn">
+
+Create Free Account
+
+</a>
+
+<a
+href="login.html"
+class="secondary-btn">
+
+Student Login
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ====================================
+             FOOTER
+==================================== -->
+
+<footer
+class="footer"
+id="contact">
+
+<div class="container footer-grid">
+
+<div>
+
+<img
+src="assets/logo/logo.png"
+class="footer-logo"
+alt="SRO Academy">
+
+<h3>
+
+SRO Academy
+
+</h3>
+
+<p>
+
+Empowering creators through professional digital skills, AI tools and practical learning.
+
+</p>
+
+</div>
+
+<div>
+
+<h4>
+
+Quick Links
+
+</h4>
+
+<ul>
+
+<li><a href="#home">Home</a></li>
+
+<li><a href="#courses">Courses</a></li>
+
+<li><a href="#why">Why Us</a></li>
+
+<li><a href="#reviews">Reviews</a></li>
+
+</ul>
+
+</div>
+
+<div>
+
+<h4>
+
+Courses
+
+</h4>
+
+<ul>
+
+<li>Video Editing</li>
+
+<li>YouTube Automation</li>
+
+<li>TikTok Automation</li>
+
+<li>AI Tools</li>
+
+</ul>
+
+</div>
+
+<div>
+
+<h4>
+
+Support
+
+</h4>
+
+<ul>
+
+<li><a href="login.html">Student Login</a></li>
+
+<li><a href="register.html">Register</a></li>
+
+<li><a href="#">Privacy Policy</a></li>
+
+<li><a href="#">Terms & Conditions</a></li>
+
+</ul>
+
+</div>
+
+</div>
+
+<div class="copyright">
+
+<p>
+
+© 2026 SRO Academy. All Rights Reserved.
+
+</p>
+
+</div>
+
+</footer>
+
+<script src="js/home.js"></script>
+
 </body>
+
 </html>
