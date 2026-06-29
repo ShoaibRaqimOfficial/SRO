@@ -7,7 +7,7 @@
 
 <title>SRO Academy | Student Registration</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/register.css">
 
 </head>
 
@@ -15,9 +15,22 @@
 
 <div class="login-box">
 
-<h1>SRO Academy</h1>
+<img
+src="logodesign.png"
+class="login-logo"
+alt="SRO Academy Logo">
 
-<p>Create Student Account</p>
+<h2 class="academy-title">
+    SRO Academy
+</h2>
+
+<p class="portal-text">
+    Student Registration
+</p>
+
+<p class="login-subtitle">
+    Create your student account and start learning with SRO Academy.
+</p>
 
 <form id="registerForm">
 
@@ -44,17 +57,37 @@ type="date"
 id="dob"
 required>
 
+<div class="password-box">
+
 <input
 type="password"
 id="password"
 placeholder="Password"
 required>
 
+<span
+id="togglePassword"
+class="toggle-password">
+Show
+</span>
+
+</div>
+
+<div class="password-box">
+
 <input
 type="password"
 id="confirmPassword"
 placeholder="Confirm Password"
 required>
+
+<span
+id="toggleConfirmPassword"
+class="toggle-password">
+Show
+</span>
+
+</div>
 
 <button
 type="submit"
