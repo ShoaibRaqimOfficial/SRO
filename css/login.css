@@ -206,14 +206,31 @@ top:50%;
 
 transform:translateY(-50%);
 
-cursor:pointer;
+display:flex;
 
-font-size:13px;
+align-items:center;
+
+justify-content:center;
+
+height:100%;
+
+font-size:12px;
 
 font-weight:700;
 
 color:#2563EB;
 
+cursor:pointer;
+
+user-select:none;
+
+text-transform:uppercase;
+
+letter-spacing:.5px;
+
+line-height:1;
+
+}
 user-select:none;
 
 text-transform:uppercase;
