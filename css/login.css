@@ -208,9 +208,25 @@ transform:translateY(-50%);
 
 cursor:pointer;
 
-font-size:20px;
+font-size:13px;
+
+font-weight:700;
+
+color:#2563EB;
 
 user-select:none;
+
+text-transform:uppercase;
+
+letter-spacing:.3px;
+
+transition:.25s;
+
+}
+
+.toggle-password:hover{
+
+color:#1E40AF;
 
 }
 
