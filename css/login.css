@@ -79,9 +79,7 @@ position:relative;
 
 z-index:10;
 
-width:100%;
-
-max-width:430px;
+width:min(92vw,430px);
 
 padding:40px 35px;
 
@@ -94,6 +92,8 @@ border-radius:25px;
 box-shadow:0 20px 60px rgba(0,0,0,.25);
 
 text-align:center;
+
+color:#ffffff;
 
 }
 
@@ -155,22 +155,39 @@ margin-bottom:30px;
 
 width:100%;
 
-height:56px;
+height:58px;
+
+padding:0 20px;
 
 border:none;
 
-border-radius:14px;
+outline:none;
 
-padding:0 18px;
+border-radius:15px;
 
-font-size:16px;
+font-size:17px;
+
+font-weight:500;
+
+background:#ffffff;
+
+color:#222;
 
 margin-bottom:18px;
 
-outline:none;
+-webkit-appearance:none;
+
+appearance:none;
 
 }
 
+.login-box input::placeholder{
+
+color:#777;
+
+opacity:1;
+
+}
 /* Password */
 
 .password-box{
@@ -185,11 +202,15 @@ position:absolute;
 
 right:18px;
 
-top:18px;
+top:50%;
+
+transform:translateY(-50%);
 
 cursor:pointer;
 
 font-size:20px;
+
+user-select:none;
 
 }
 
