@@ -1,49 +1,29 @@
 import {
-    auth,
-    db,
-    createUserWithEmailAndPassword,
-    doc,
-    setDoc
+db
 } from "./firebase.js";
+
+import {
+collection,
+addDoc
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const registerForm = document.getElementById("registerForm");
 
 const fullName = document.getElementById("fullName");
 const email = document.getElementById("email");
 const phone = document.getElementById("phone");
-const dob = document.getElementById("dob");
-const password = document.getElementById("password");
-const confirmPassword = document.getElementById("confirmPassword");
+const city = document.getElementById("city");
+const course = document.getElementById("course");
+const reason = document.getElementById("reason");
 const message = document.getElementById("message");
 
 registerForm.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
-    if (password.value !== confirmPassword.value) {
-
-        message.style.color = "red";
-        message.textContent = "Passwords do not match.";
-
-        return;
-
-    }
-
     try {
 
-        const userCredential = await createUserWithEmailAndPassword(
-
-            auth,
-            email.value,
-            password.value
-
-        );
-
-        const user = userCredential.user;
-
-        await setDoc(doc(db, "students", user.uid), {
-
-            uid: user.uid,
+        await addDoc(collection(db, "applications"), {
 
             fullName: fullName.value,
 
@@ -51,70 +31,38 @@ registerForm.addEventListener("submit", async (e) => {
 
             phone: phone.value,
 
-            dob: dob.value,
+            city: city.value,
 
-            profileImage: "",
+            course: course.value,
 
-            status: "Active",
+            reason: reason.value,
 
-            joinedAt: new Date().toISOString()
+            status: "Pending",
+
+            appliedAt: new Date().toISOString()
 
         });
 
         message.style.color = "green";
-        message.textContent = "Account Created Successfully! Redirecting...";
 
-        setTimeout(() => {
+        message.innerHTML = `
+        ✅ Application Submitted Successfully.<br><br>
+        Your admission request has been sent to SRO Academy.<br>
+        Please wait for approval from the admin.
+        `;
 
-            window.location.href = "login.html";
-
-        }, 1500);
+        registerForm.reset();
 
     }
 
-catch (error) {
+    catch(error){
 
-    console.error("REGISTER ERROR:", error);
+        console.error(error);
 
-    message.style.color = "red";
-    message.textContent = error.message;
+        message.style.color="red";
 
-    alert(error.message);
+        message.textContent=error.message;
 
-}
-
-});
-const togglePassword=document.getElementById("togglePassword");
-const toggleConfirmPassword=document.getElementById("toggleConfirmPassword");
-
-togglePassword.addEventListener("click",()=>{
-
-if(password.type==="password"){
-
-password.type="text";
-togglePassword.textContent="Hide";
-
-}else{
-
-password.type="password";
-togglePassword.textContent="Show";
-
-}
-
-});
-
-toggleConfirmPassword.addEventListener("click",()=>{
-
-if(confirmPassword.type==="password"){
-
-confirmPassword.type="text";
-toggleConfirmPassword.textContent="Hide";
-
-}else{
-
-confirmPassword.type="password";
-toggleConfirmPassword.textContent="Show";
-
-}
+    }
 
 });
