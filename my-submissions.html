@@ -26,11 +26,13 @@ SRO Academy
 
 <ul class="nav-links">
 
-<li><a href="index.html">Home</a></li>
+<li><a href="student-dashboard.html">Dashboard</a></li>
 
-<li><a href="index.html#assignmentGrid">Assignments</a></li>
+<li><a href="student-dashboard.html#assignments">Assignments</a></li>
 
-<li><a href="my-submissions.html">My Submissions</a></li>
+<li><a href="my-submissions.html" class="active">My Submissions</a></li>
+
+<li><a href="profile.html">Profile</a></li>
 
 <li><a href="login.html">Logout</a></li>
 
@@ -53,22 +55,26 @@ My Submitted Assignments
 </h2>
 
 <p style="color:#666;">
-Track your submissions and view teacher feedback.
+Track your submissions, teacher feedback and ask questions.
 </p>
 
 </div>
 
 <div>
 
-<a href="index.html" class="btn secondary">
-← Back to Home
+<a href="student-dashboard.html" class="btn secondary">
+
+← Dashboard
+
 </a>
 
 <button
 onclick="location.reload()"
 class="btn primary"
 style="border:none;cursor:pointer;margin-left:10px;">
+
 Refresh
+
 </button>
 
 </div>
@@ -97,6 +103,10 @@ style="background:#fff;border-collapse:collapse;border-radius:12px;overflow:hidd
 
 <th>Teacher Feedback</th>
 
+<th>Ask Question</th>
+
+<th>Teacher Reply</th>
+
 <th>Submitted</th>
 
 </tr>
@@ -107,7 +117,7 @@ style="background:#fff;border-collapse:collapse;border-radius:12px;overflow:hidd
 
 <tr>
 
-<td colspan="6" style="text-align:center;padding:40px;">
+<td colspan="8" style="text-align:center;padding:40px;">
 
 Loading your submissions...
 
