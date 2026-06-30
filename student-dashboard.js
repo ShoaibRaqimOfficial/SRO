@@ -248,8 +248,6 @@ console.error(error);
 // LOGOUT
 // ==========================
 
-logoutBtn.addEventListener("click",async()=>{
-
 await signOut(auth);
 
 window.location.href="login.html";
