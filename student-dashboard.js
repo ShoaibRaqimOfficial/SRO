@@ -253,10 +253,6 @@ await signOut(auth);
 window.location.href="login.html";
 
 });
-logoutBtn.addEventListener(...);
-
-
-
 // 👇 ISKE BAAD PASTE KARNA HAI
 // ==========================
 // SIDEBAR NAVIGATION
