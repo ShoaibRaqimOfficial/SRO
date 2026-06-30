@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SRO Academy | Student Registration</title>
+<title>SRO Academy | Apply for Admission</title>
 
 <link rel="stylesheet" href="css/register.css">
+
 </head>
 
 <body class="login-page">
@@ -15,20 +17,20 @@
 <div class="login-box">
 
 <img
-src="logodesign.png"
+src="assets/logo/mainlogo.png"
 class="login-logo"
 alt="SRO Academy Logo">
 
 <h2 class="academy-title">
-    SRO Academy
+SRO Academy
 </h2>
 
 <p class="portal-text">
-    Student Registration
+Apply for Admission
 </p>
 
 <p class="login-subtitle">
-    Create your student account and start learning with SRO Academy.
+Submit your application. After approval, you will receive access to the Student Portal.
 </p>
 
 <form id="registerForm">
@@ -52,46 +54,57 @@ placeholder="Mobile Number"
 required>
 
 <input
-type="date"
-id="dob"
+type="text"
+id="city"
+placeholder="City"
 required>
 
-<div class="password-box">
-
-<input
-type="password"
-id="password"
-placeholder="Password"
+<select
+id="course"
 required>
 
-<span
-id="togglePassword"
-class="toggle-password">
-Show
-</span>
+<option value="">
+Select Course
+</option>
 
-</div>
+<option>
+Professional Video Editing
+</option>
 
-<div class="password-box">
+<option>
+YouTube Automation
+</option>
 
-<input
-type="password"
-id="confirmPassword"
-placeholder="Confirm Password"
-required>
+<option>
+TikTok Automation
+</option>
 
-<span
-id="toggleConfirmPassword"
-class="toggle-password">
-Show
-</span>
+<option>
+AI Tools
+</option>
 
-</div>
+<option>
+Graphic Design
+</option>
+
+<option>
+Content Creation
+</option>
+
+</select>
+
+<textarea
+id="reason"
+placeholder="Why do you want to join SRO Academy?"
+rows="5"
+required></textarea>
 
 <button
 type="submit"
 class="login-btn">
-Create Account
+
+Submit Application
+
 </button>
 
 </form>
@@ -99,7 +112,10 @@ Create Account
 <div class="login-links">
 
 <a href="login.html">
-Already have an account? Login
+
+Already a Student?
+Login to Student Portal
+
 </a>
 
 </div>
@@ -111,4 +127,5 @@ Already have an account? Login
 <script type="module" src="register.js"></script>
 
 </body>
+
 </html>
