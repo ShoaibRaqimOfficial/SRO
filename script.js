@@ -34,11 +34,15 @@ loginForm.addEventListener("submit", async (e) => {
         setTimeout(() => {
             const currentUserEmail = userCredential.user.email.trim().toLowerCase();
             
-            if (currentUserEmail === ADMIN_EMAIL.toLowerCase()) {
-                window.location.href = "dashboard.html"; // Admin Dashboard
-            } else {
-                window.location.href = "index.html"; // Student Portal
-            }
+         if (currentUserEmail === ADMIN_EMAIL.toLowerCase()) {
+
+    window.location.href = "dashboard.html";
+
+} else {
+
+    window.location.href = "student-dashboard.html";
+
+}
         }, 1000);
 
     } catch (error) {
