@@ -248,9 +248,11 @@ console.error(error);
 // LOGOUT
 // ==========================
 
-await signOut(auth);
+logoutBtn.addEventListener("click", async () => {
 
-window.location.href="login.html";
+    await signOut(auth);
+
+    window.location.href = "login.html";
 
 });
 // 👇 ISKE BAAD PASTE KARNA HAI
