@@ -9,12 +9,21 @@ import {
 collection,
 getDocs,
 query,
-orderBy
+orderBy,
+where
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const assignmentList=document.getElementById("assignmentList");
 
 const assignmentCount=document.getElementById("assignmentCount");
+
+const submissionList=document.getElementById("submissionList");
+
+const submissionCount=document.getElementById("submissionCount");
+
+const pendingCount=document.getElementById("pendingCount");
+
+const approvedCount=document.getElementById("approvedCount");
 
 const logoutBtn=document.getElementById("logoutBtn");
 
@@ -29,11 +38,13 @@ return;
 
 loadAssignments();
 
+loadMySubmissions(user);
+
 });
 
 async function loadAssignments(){
 
-assignmentList.innerHTML="Loading...";
+assignmentList.innerHTML="Loading Assignments...";
 
 try{
 
@@ -105,6 +116,83 @@ Submit
 console.error(error);
 
 assignmentList.innerHTML="<h3>Error Loading Assignments</h3>";
+
+}
+
+}
+
+async function loadMySubmissions(user){
+
+try{
+
+const q=query(
+
+collection(db,"submissions"),
+
+where("studentEmail","==",user.email)
+
+);
+
+const snapshot=await getDocs(q);
+
+submissionCount.textContent=snapshot.size;
+
+let pending=0;
+
+let approved=0;
+
+submissionList.innerHTML="";
+
+if(snapshot.empty){
+
+submissionList.innerHTML="<h3>No submissions yet.</h3>";
+
+pendingCount.textContent=0;
+
+approvedCount.textContent=0;
+
+return;
+
+}
+
+snapshot.forEach((doc)=>{
+
+const data=doc.data();
+
+if(data.status==="Pending") pending++;
+
+if(data.status==="Approved") approved++;
+
+submissionList.innerHTML+=`
+
+<div class="assignment-card">
+
+<h3>${data.fileName}</h3>
+
+<p><strong>Status:</strong> ${data.status}</p>
+
+<a
+href="${data.assignmentLink}"
+target="_blank"
+class="download-btn">
+
+View Submission
+
+</a>
+
+</div>
+
+`;
+
+});
+
+pendingCount.textContent=pending;
+
+approvedCount.textContent=approved;
+
+}catch(error){
+
+console.error(error);
 
 }
 
