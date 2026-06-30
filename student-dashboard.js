@@ -255,3 +255,69 @@ await signOut(auth);
 window.location.href="login.html";
 
 });
+logoutBtn.addEventListener(...);
+
+
+
+// 👇 ISKE BAAD PASTE KARNA HAI
+// ==========================
+// SIDEBAR NAVIGATION
+// ==========================
+
+const menuLinks=document.querySelectorAll(".sidebar a[data-page]");
+
+const pages={
+
+dashboard:document.getElementById("dashboardPage"),
+
+assignments:document.getElementById("assignments"),
+
+submissions:document.getElementById("submissions"),
+
+profile:document.getElementById("profile")
+
+};
+
+menuLinks.forEach(link=>{
+
+link.addEventListener("click",(e)=>{
+
+e.preventDefault();
+
+const page=link.dataset.page;
+
+// Hide All
+
+Object.values(pages).forEach(section=>{
+
+section.style.display="none";
+
+});
+
+// Show Selected
+
+pages[page].style.display="block";
+
+// Active Menu
+
+document.querySelectorAll(".sidebar li").forEach(li=>{
+
+li.classList.remove("active");
+
+});
+
+link.parentElement.classList.add("active");
+
+});
+
+});
+
+// Default
+
+pages.dashboard.style.display="block";
+
+pages.assignments.style.display="none";
+
+pages.submissions.style.display="none";
+
+pages.profile.style.display="none";
