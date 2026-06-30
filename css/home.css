@@ -563,6 +563,36 @@ filter:
 drop-shadow(0 45px 90px rgba(0,0,0,.45));
 
 }
+
+transform-style:preserve-3d;
+
+transition:
+
+transform .5s ease,
+
+filter .5s ease;
+
+cursor:pointer;
+
+}
+
+.hero-image img:hover{
+
+transform:
+
+perspective(1200px)
+
+rotateY(-12deg)
+
+rotateX(6deg)
+
+scale(1.05);
+
+filter:
+
+drop-shadow(0 45px 90px rgba(0,0,0,.45));
+
+}
 @keyframes float{
 
 0%{
