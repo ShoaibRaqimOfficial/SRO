@@ -7,13 +7,17 @@ where,
 getDocs,
 doc,
 updateDoc
+
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const submissionTable=document.getElementById("submissionTable");
 
-// ==============================
-// LOGIN CHECK
-// ==============================
+const totalSubmission=document.getElementById("totalSubmission");
+const approvedSubmission=document.getElementById("approvedSubmission");
+const pendingSubmission=document.getElementById("pendingSubmission");
+const rejectedSubmission=document.getElementById("rejectedSubmission");
+
+// LOGIN
 
 onAuthStateChanged(auth,(user)=>{
 
@@ -28,25 +32,11 @@ loadMySubmissions(user.email);
 
 });
 
-// ==============================
 // LOAD SUBMISSIONS
-// ==============================
 
 async function loadMySubmissions(email){
 
-submissionTable.innerHTML=`
-
-<tr>
-
-<td colspan="8" style="text-align:center;padding:30px;">
-
-Loading...
-
-</td>
-
-</tr>
-
-`;
+submissionTable.innerHTML="<p>Loading...</p>";
 
 try{
 
@@ -60,21 +50,22 @@ where("studentEmail","==",email)
 
 const snapshot=await getDocs(q);
 
+let total=0;
+let approved=0;
+let pending=0;
+let rejected=0;
+
 submissionTable.innerHTML="";
 
 if(snapshot.empty){
 
 submissionTable.innerHTML=`
 
-<tr>
+<div class="assignment-card">
 
-<td colspan="8" style="text-align:center;">
+<h3>No submissions found.</h3>
 
-No submissions found.
-
-</td>
-
-</tr>
+</div>
 
 `;
 
@@ -86,55 +77,132 @@ snapshot.forEach((document)=>{
 
 const data=document.data();
 
+total++;
+
+if(data.status==="Approved") approved++;
+else if(data.status==="Rejected") rejected++;
+else pending++;
+
 submissionTable.innerHTML+=`
 
-<tr>
+<div class="assignment-card">
 
-<td>${data.assignmentId || "-"}</td>
+<h3>
 
-<td>${data.status || "Pending"}</td>
+📚 ${data.assignmentId || "Assignment"}
 
-<td>${data.pros || "-"}</td>
+</h3>
 
-<td>${data.cons || "-"}</td>
+<p>
 
-<td>${data.feedback || "Waiting for teacher review..."}</td>
+<strong>Status:</strong>
 
-<td>
+<span class="status">
 
-<textarea
-id="question-${document.id}"
-rows="3"
-style="width:200px;"
-placeholder="Ask your teacher...">${data.studentQuestion || ""}</textarea>
+${data.status || "Pending"}
 
-<br><br>
+</span>
 
-<button onclick="saveQuestion('${document.id}')">
+</p>
 
-Send
+<p>
 
-</button>
-
-</td>
-
-<td>
-
-${data.teacherReply || "No reply yet."}
-
-</td>
-
-<td>
+<strong>Submitted:</strong>
 
 ${data.submittedAt || "-"}
 
-</td>
+</p>
 
-</tr>
+<hr>
+
+<p>
+
+<strong>✅ Pros</strong>
+
+<br>
+
+${data.pros || "Waiting for review..."}
+
+</p>
+
+<p>
+
+<strong>⚠ Needs Improvement</strong>
+
+<br>
+
+${data.cons || "Waiting for review..."}
+
+</p>
+
+<p>
+
+<strong>💬 Teacher Feedback</strong>
+
+<br>
+
+${data.feedback || "Waiting for teacher review..."}
+
+</p>
+
+<p>
+
+<strong>👨‍🏫 Teacher Reply</strong>
+
+<br>
+
+${data.teacherReply || "No reply yet."}
+
+</p>
+
+<textarea
+
+id="question-${document.id}"
+
+placeholder="Feel free to ask your teacher..."
+
+style="width:100%;margin-top:15px;height:100px;padding:12px;border-radius:10px;">
+
+${data.studentQuestion || ""}
+
+</textarea>
+
+<br><br>
+
+<button
+
+class="submit-btn"
+
+onclick="saveQuestion('${document.id}')">
+
+Send Question
+
+</button>
+
+<br><br>
+
+<a
+
+href="${data.assignmentLink}"
+
+target="_blank"
+
+class="download-btn">
+
+🎥 View Submission
+
+</a>
+
+</div>
 
 `;
 
 });
+
+totalSubmission.textContent=total;
+approvedSubmission.textContent=approved;
+pendingSubmission.textContent=pending;
+rejectedSubmission.textContent=rejected;
 
 }catch(error){
 
@@ -142,15 +210,15 @@ console.error(error);
 
 submissionTable.innerHTML=`
 
-<tr>
+<div class="assignment-card">
 
-<td colspan="8" style="text-align:center;color:red;">
+<h3 style="color:red;">
 
 Failed to load submissions.
 
-</td>
+</h3>
 
-</tr>
+</div>
 
 `;
 
@@ -158,9 +226,7 @@ Failed to load submissions.
 
 }
 
-// ==============================
 // SAVE QUESTION
-// ==============================
 
 window.saveQuestion=async function(id){
 
