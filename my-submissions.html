@@ -6,132 +6,129 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>My Submissions | SRO Academy</title>
+<title>SRO Academy | My Submissions</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/student-dashboard.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
 
 </head>
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
-
-<nav class="navbar">
-
-<div class="container nav-container">
+<div class="sidebar">
 
 <div class="logo">
-SRO Academy
+<h2>SRO Academy</h2>
 </div>
 
-<ul class="nav-links">
+<ul>
 
-<li><a href="student-dashboard.html">Dashboard</a></li>
+<li>
+<a href="student-dashboard.html">
+<i class="fas fa-house"></i>
+Dashboard
+</a>
+</li>
 
-<li><a href="student-dashboard.html#assignments">Assignments</a></li>
+<li>
+<a href="student-dashboard.html#assignments">
+<i class="fas fa-book"></i>
+Assignments
+</a>
+</li>
 
-<li><a href="my-submissions.html" class="active">My Submissions</a></li>
+<li class="active">
+<a href="my-submissions.html">
+<i class="fas fa-upload"></i>
+My Submissions
+</a>
+</li>
 
-<li><a href="profile.html">Profile</a></li>
+<li>
+<a href="profile.html">
+<i class="fas fa-user"></i>
+Profile
+</a>
+</li>
 
-<li><a href="login.html">Logout</a></li>
+<li>
+<a href="login.html">
+<i class="fas fa-right-from-bracket"></i>
+Logout
+</a>
+</li>
 
 </ul>
 
 </div>
 
-</nav>
+<div class="main">
 
-<!-- ================= PAGE ================= -->
-
-<section class="container" style="padding:60px 0;">
-
-<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:30px;">
+<header>
 
 <div>
 
-<h2 class="section-title" style="margin-bottom:10px;">
-My Submitted Assignments
-</h2>
+<h1>📤 My Submitted Assignments</h1>
 
-<p style="color:#666;">
+<p>
+
 Track your submissions, teacher feedback and ask questions.
+
 </p>
 
 </div>
 
-<div>
+</header>
 
-<a href="student-dashboard.html" class="btn secondary">
+<section class="stats">
 
-← Dashboard
+<div class="card">
+<h2 id="totalSubmission">0</h2>
+<p>Total Submitted</p>
+</div>
 
-</a>
+<div class="card">
+<h2 id="approvedSubmission">0</h2>
+<p>Approved</p>
+</div>
 
-<button
-onclick="location.reload()"
-class="btn primary"
-style="border:none;cursor:pointer;margin-left:10px;">
+<div class="card">
+<h2 id="pendingSubmission">0</h2>
+<p>Pending</p>
+</div>
 
-Refresh
+<div class="card">
+<h2 id="rejectedSubmission">0</h2>
+<p>Rejected</p>
+</div>
 
-</button>
+</section>
+
+<section>
+
+<div class="section-title">
+
+<h2>
+
+Assignment History
+
+</h2>
 
 </div>
 
-</div>
+<div id="submissionTable">
 
-<div style="overflow-x:auto;">
+<!-- JavaScript yahan cards banayega -->
 
-<table
-width="100%"
-cellspacing="0"
-cellpadding="12"
-style="background:#fff;border-collapse:collapse;border-radius:12px;overflow:hidden;">
-
-<thead style="background:#0B3D91;color:white;">
-
-<tr>
-
-<th>Assignment</th>
-
-<th>Status</th>
-
-<th>Pros</th>
-
-<th>Needs Improvement</th>
-
-<th>Teacher Feedback</th>
-
-<th>Ask Question</th>
-
-<th>Teacher Reply</th>
-
-<th>Submitted</th>
-
-</tr>
-
-</thead>
-
-<tbody id="submissionTable">
-
-<tr>
-
-<td colspan="8" style="text-align:center;padding:40px;">
-
-Loading your submissions...
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
+Loading...
 
 </div>
 
 </section>
+</div>
 
 <script type="module" src="my-submissions.js"></script>
 
