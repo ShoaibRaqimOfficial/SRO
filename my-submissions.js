@@ -10,7 +10,7 @@ updateDoc
 
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
-const submissionTable=document.getElementById("submissionTable");
+const submissionTable=document.getElementById("submissionList");
 
 const totalSubmission=document.getElementById("totalSubmission");
 const approvedSubmission=document.getElementById("approvedSubmission");
