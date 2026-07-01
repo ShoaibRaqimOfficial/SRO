@@ -228,3 +228,1805 @@ font-size:26px;
 }
 
 }
+/* =======================================================
+   SRO ACADEMY PREMIUM UI V2
+   PART 1
+   Global Theme + Sidebar + Header
+=======================================================*/
+
+/* Smooth Scroll */
+html{
+scroll-behavior:smooth;
+}
+
+/* Background */
+body{
+
+background:
+linear-gradient(135deg,#eef5ff 0%,#f7fbff 40%,#ffffff 100%);
+
+overflow-x:hidden;
+
+}
+
+/* Selection */
+
+::selection{
+
+background:#2563eb;
+color:#fff;
+
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+
+width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+background:#edf2ff;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+background:linear-gradient(
+180deg,
+#3b82f6,
+#2563eb
+);
+
+border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+background:#1d4ed8;
+
+}
+
+/* =========================================
+SIDEBAR
+========================================= */
+
+.sidebar{
+
+background:
+linear-gradient(
+180deg,
+#07122f,
+#0b1d48,
+#132d67
+);
+
+box-shadow:
+
+12px 0 45px rgba(37,99,235,.18);
+
+border-right:
+
+1px solid rgba(255,255,255,.08);
+
+}
+
+/* LOGO */
+
+.logo{
+
+padding-bottom:25px;
+
+margin-bottom:35px;
+
+border-bottom:
+
+1px solid rgba(255,255,255,.08);
+
+}
+
+.logo h2{
+
+font-size:28px;
+
+font-weight:700;
+
+letter-spacing:.6px;
+
+color:white;
+
+text-shadow:
+
+0 0 15px rgba(59,130,246,.6);
+
+}
+
+/* Menu */
+
+.sidebar ul{
+
+margin-top:15px;
+
+}
+
+.sidebar li{
+
+margin-bottom:15px;
+
+}
+
+/* Links */
+
+.sidebar a{
+
+padding:16px 18px;
+
+border-radius:14px;
+
+font-size:15px;
+
+font-weight:500;
+
+transition:.35s;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+/* Hover */
+
+.sidebar a:hover{
+
+transform:translateX(8px);
+
+background:
+
+linear-gradient(
+90deg,
+rgba(59,130,246,.18),
+rgba(96,165,250,.08)
+);
+
+color:white;
+
+}
+
+/* Active */
+
+.sidebar .active a{
+
+background:
+
+linear-gradient(
+90deg,
+#2563eb,
+#3b82f6
+);
+
+color:white;
+
+box-shadow:
+
+0 12px 30px rgba(37,99,235,.35);
+
+}
+
+/* Active Blue Line */
+
+.sidebar .active a::before{
+
+content:"";
+
+position:absolute;
+
+left:0;
+
+top:10px;
+
+bottom:10px;
+
+width:4px;
+
+border-radius:20px;
+
+background:white;
+
+}
+
+/* Icons */
+
+.sidebar i{
+
+font-size:18px;
+
+width:24px;
+
+text-align:center;
+
+transition:.3s;
+
+}
+
+.sidebar a:hover i{
+
+transform:scale(1.15);
+
+}
+
+/* =========================================
+MAIN
+========================================= */
+
+.main{
+
+padding:40px;
+
+}
+
+/* =========================================
+HEADER
+========================================= */
+
+header{
+
+background:
+
+rgba(255,255,255,.72);
+
+backdrop-filter:blur(16px);
+
+border:
+
+1px solid rgba(255,255,255,.65);
+
+box-shadow:
+
+0 20px 60px rgba(0,0,0,.08);
+
+border-radius:24px;
+
+padding:35px;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+/* Decorative Glow */
+
+header::after{
+
+content:"";
+
+position:absolute;
+
+right:-120px;
+
+top:-120px;
+
+width:260px;
+
+height:260px;
+
+border-radius:50%;
+
+background:
+
+rgba(37,99,235,.10);
+
+}
+
+/* Title */
+
+header h1{
+
+font-size:38px;
+
+font-weight:700;
+
+color:#0f172a;
+
+margin-bottom:10px;
+
+}
+
+/* Subtitle */
+
+header p{
+
+font-size:16px;
+
+color:#64748b;
+
+}
+
+/* Welcome Badge */
+
+header::before{
+
+content:"SRO Academy";
+
+position:absolute;
+
+right:35px;
+
+bottom:25px;
+
+background:
+
+linear-gradient(
+90deg,
+#2563eb,
+#3b82f6
+);
+
+padding:
+
+8px 18px;
+
+border-radius:50px;
+
+color:white;
+
+font-size:13px;
+
+font-weight:600;
+
+letter-spacing:.5px;
+
+box-shadow:
+
+0 10px 25px rgba(37,99,235,.28);
+
+}
+/* =======================================================
+   SRO ACADEMY PREMIUM UI V2
+   PART 2
+   Statistics + Assignment Cards + Buttons
+=======================================================*/
+
+/* =========================================
+SECTION TITLE
+=========================================*/
+
+.section-title{
+
+margin-bottom:25px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+}
+
+.section-title h2{
+
+font-size:30px;
+font-weight:700;
+color:#0f172a;
+position:relative;
+padding-left:18px;
+
+}
+
+.section-title h2::before{
+
+content:"";
+position:absolute;
+left:0;
+top:4px;
+bottom:4px;
+width:6px;
+border-radius:30px;
+background:#2563eb;
+
+}
+
+/* =========================================
+STATISTICS GRID
+=========================================*/
+
+.stats{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:25px;
+margin-bottom:45px;
+
+}
+
+/* Premium Card */
+
+.card{
+
+background:rgba(255,255,255,.82);
+
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,.65);
+
+border-radius:24px;
+
+padding:35px 25px;
+
+position:relative;
+
+overflow:hidden;
+
+box-shadow:
+
+0 15px 45px rgba(15,23,42,.08);
+
+transition:.35s;
+
+}
+
+/* Top Gradient */
+
+.card::before{
+
+content:"";
+
+position:absolute;
+
+left:0;
+right:0;
+top:0;
+
+height:6px;
+
+background:
+
+linear-gradient(
+90deg,
+#2563eb,
+#60a5fa
+);
+
+}
+
+/* Decorative Circle */
+
+.card::after{
+
+content:"";
+
+position:absolute;
+
+right:-40px;
+bottom:-40px;
+
+width:120px;
+height:120px;
+
+border-radius:50%;
+
+background:
+
+rgba(37,99,235,.05);
+
+}
+
+/* Hover */
+
+.card:hover{
+
+transform:
+
+translateY(-10px);
+
+box-shadow:
+
+0 25px 60px rgba(37,99,235,.18);
+
+}
+
+/* Number */
+
+.card h2{
+
+font-size:42px;
+
+font-weight:700;
+
+color:#2563eb;
+
+margin-bottom:8px;
+
+}
+
+/* Label */
+
+.card p{
+
+font-size:16px;
+
+font-weight:500;
+
+color:#64748b;
+
+}
+
+/* =========================================
+ASSIGNMENT GRID
+=========================================*/
+
+#assignmentList{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(auto-fill,minmax(360px,1fr));
+
+gap:30px;
+
+}
+
+/* Premium Assignment Card */
+
+.assignment-card{
+
+background:white;
+
+border-radius:24px;
+
+padding:28px;
+
+position:relative;
+
+overflow:hidden;
+
+border:
+
+1px solid #eef2ff;
+
+box-shadow:
+
+0 18px 45px rgba(15,23,42,.06);
+
+transition:.35s;
+
+}
+
+/* Blue Strip */
+
+.assignment-card::before{
+
+content:"";
+
+position:absolute;
+
+left:0;
+top:0;
+
+width:100%;
+height:8px;
+
+background:
+
+linear-gradient(
+90deg,
+#2563eb,
+#60a5fa
+);
+
+}
+
+/* Hover */
+
+.assignment-card:hover{
+
+transform:
+
+translateY(-8px);
+
+box-shadow:
+
+0 28px 60px rgba(37,99,235,.18);
+
+}
+
+/* Assignment Title */
+
+.assignment-card h3{
+
+font-size:24px;
+
+font-weight:700;
+
+color:#0f172a;
+
+margin-bottom:18px;
+
+}
+
+/* Description */
+
+.assignment-card p{
+
+font-size:15px;
+
+line-height:1.8;
+
+color:#64748b;
+
+margin-bottom:14px;
+
+}
+
+/* =========================================
+BUTTON AREA
+=========================================*/
+
+.assignment-buttons{
+
+display:flex;
+
+gap:15px;
+
+margin-top:28px;
+
+}
+
+/* Shared Button */
+
+.assignment-buttons a{
+
+flex:1;
+
+padding:14px;
+
+text-align:center;
+
+text-decoration:none;
+
+font-size:15px;
+
+font-weight:600;
+
+border-radius:14px;
+
+transition:.3s;
+
+}
+
+/* Download */
+
+.download-btn{
+
+background:
+
+linear-gradient(
+135deg,
+#2563eb,
+#3b82f6
+);
+
+color:white;
+
+box-shadow:
+
+0 12px 30px rgba(37,99,235,.25);
+
+}
+
+.download-btn:hover{
+
+transform:translateY(-3px);
+
+box-shadow:
+
+0 18px 35px rgba(37,99,235,.35);
+
+}
+
+/* Submit */
+
+.submit-btn{
+
+background:
+
+linear-gradient(
+135deg,
+#10b981,
+#22c55e
+);
+
+color:white;
+
+box-shadow:
+
+0 12px 30px rgba(16,185,129,.25);
+
+}
+
+.submit-btn:hover{
+
+transform:translateY(-3px);
+
+box-shadow:
+
+0 18px 35px rgba(16,185,129,.35);
+
+}
+
+/* =========================================
+SMALL BADGE
+=========================================*/
+
+.badge{
+
+display:inline-block;
+
+padding:8px 14px;
+
+border-radius:50px;
+
+font-size:13px;
+
+font-weight:600;
+
+background:#eff6ff;
+
+color:#2563eb;
+
+margin-top:8px;
+
+}
+
+/* =========================================
+SMOOTH ANIMATION
+=========================================*/
+
+.card,
+.assignment-card{
+
+animation:fadeUp .6s ease;
+
+}
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+transform:translateY(30px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+/* =======================================================
+   SRO ACADEMY PREMIUM UI V2
+   PART 3
+   Profile • My Submissions • Forms • Feedback
+=======================================================*/
+
+/* ==========================
+PROFILE CARD
+========================== */
+
+.profile-card{
+
+display:flex;
+align-items:center;
+gap:35px;
+
+background:rgba(255,255,255,.85);
+
+backdrop-filter:blur(18px);
+
+padding:35px;
+
+border-radius:25px;
+
+box-shadow:0 20px 55px rgba(0,0,0,.08);
+
+border:1px solid rgba(255,255,255,.6);
+
+margin-bottom:35px;
+
+transition:.35s;
+
+}
+
+.profile-card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:0 25px 60px rgba(37,99,235,.15);
+
+}
+
+.profile-avatar{
+
+width:140px;
+height:140px;
+
+border-radius:50%;
+
+overflow:hidden;
+
+border:5px solid #2563eb;
+
+box-shadow:0 15px 35px rgba(37,99,235,.25);
+
+flex-shrink:0;
+
+}
+
+.profile-avatar img{
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+}
+
+.profile-info{
+
+flex:1;
+
+}
+
+.profile-info h2{
+
+font-size:30px;
+
+margin-bottom:15px;
+
+color:#0f172a;
+
+}
+
+.profile-info p{
+
+margin-bottom:12px;
+
+font-size:15px;
+
+color:#64748b;
+
+}
+
+.profile-info strong{
+
+color:#0f172a;
+
+}
+
+/* ==========================
+MY SUBMISSIONS
+========================== */
+
+#submissionList{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fill,minmax(380px,1fr));
+
+gap:28px;
+
+margin-top:25px;
+
+}
+
+.submission-card{
+
+background:white;
+
+padding:28px;
+
+border-radius:22px;
+
+box-shadow:0 18px 45px rgba(0,0,0,.06);
+
+transition:.35s;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.submission-card::before{
+
+content:"";
+
+position:absolute;
+
+left:0;
+top:0;
+
+width:100%;
+height:6px;
+
+background:linear-gradient(
+90deg,
+#10b981,
+#22c55e
+);
+
+}
+
+.submission-card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:0 25px 60px rgba(16,185,129,.15);
+
+}
+
+.submission-card h3{
+
+margin-bottom:12px;
+
+font-size:22px;
+
+color:#0f172a;
+
+}
+
+.submission-card p{
+
+margin-bottom:10px;
+
+color:#64748b;
+
+line-height:1.7;
+
+}
+
+/* ==========================
+STATUS BADGES
+========================== */
+
+.status{
+
+display:inline-block;
+
+padding:8px 18px;
+
+border-radius:50px;
+
+font-size:13px;
+
+font-weight:600;
+
+}
+
+.status-approved{
+
+background:#dcfce7;
+
+color:#16a34a;
+
+}
+
+.status-pending{
+
+background:#fef3c7;
+
+color:#ca8a04;
+
+}
+
+.status-rejected{
+
+background:#fee2e2;
+
+color:#dc2626;
+
+}
+
+/* ==========================
+FEEDBACK BOX
+========================== */
+
+.feedback-box{
+
+margin-top:20px;
+
+padding:20px;
+
+background:#f8fbff;
+
+border-left:5px solid #2563eb;
+
+border-radius:15px;
+
+}
+
+.feedback-box h4{
+
+margin-bottom:12px;
+
+color:#2563eb;
+
+}
+
+.feedback-box p{
+
+line-height:1.8;
+
+color:#475569;
+
+}
+
+/* ==========================
+QUESTION BOX
+========================== */
+
+.question-box{
+
+margin-top:22px;
+
+}
+
+.question-box textarea{
+
+width:100%;
+
+height:120px;
+
+resize:none;
+
+padding:15px;
+
+border-radius:15px;
+
+border:1px solid #dbeafe;
+
+background:white;
+
+font-size:15px;
+
+transition:.3s;
+
+}
+
+.question-box textarea:focus{
+
+outline:none;
+
+border-color:#2563eb;
+
+box-shadow:0 0 0 5px rgba(37,99,235,.08);
+
+}
+
+/* ==========================
+PREMIUM INPUTS
+========================== */
+
+input,
+select,
+textarea{
+
+font-family:Poppins,sans-serif;
+
+font-size:15px;
+
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=date]{
+
+width:100%;
+
+padding:15px 18px;
+
+border-radius:14px;
+
+border:1px solid #dbeafe;
+
+background:white;
+
+transition:.3s;
+
+}
+
+input:focus{
+
+outline:none;
+
+border-color:#2563eb;
+
+box-shadow:0 0 0 5px rgba(37,99,235,.08);
+
+}
+
+/* ==========================
+BUTTONS
+========================== */
+
+.btn,
+button{
+
+padding:14px 24px;
+
+border:none;
+
+border-radius:14px;
+
+cursor:pointer;
+
+font-size:15px;
+
+font-weight:600;
+
+transition:.3s;
+
+}
+
+.btn-primary{
+
+background:linear-gradient(
+135deg,
+#2563eb,
+#3b82f6
+);
+
+color:white;
+
+}
+
+.btn-primary:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 15px 35px rgba(37,99,235,.30);
+
+}
+
+.btn-success{
+
+background:linear-gradient(
+135deg,
+#10b981,
+#22c55e
+);
+
+color:white;
+
+}
+
+.btn-success:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 15px 35px rgba(16,185,129,.30);
+
+}
+
+/* ==========================
+TABLE DESIGN
+========================== */
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+background:white;
+
+border-radius:20px;
+
+overflow:hidden;
+
+box-shadow:0 20px 50px rgba(0,0,0,.06);
+
+}
+
+thead{
+
+background:linear-gradient(
+90deg,
+#2563eb,
+#3b82f6
+);
+
+color:white;
+
+}
+
+th{
+
+padding:18px;
+
+font-weight:600;
+
+}
+
+td{
+
+padding:18px;
+
+border-bottom:1px solid #eef2ff;
+
+color:#475569;
+
+}
+
+tbody tr{
+
+transition:.3s;
+
+}
+
+tbody tr:hover{
+
+background:#f8fbff;
+
+}
+
+/* ==========================
+ANIMATION
+========================== */
+
+.profile-card,
+.submission-card,
+.feedback-box{
+
+animation:fadeCard .6s ease;
+
+}
+
+@keyframes fadeCard{
+
+from{
+
+opacity:0;
+
+transform:translateY(25px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+/* =======================================================
+   SRO ACADEMY PREMIUM UI V2
+   PART 4
+   Final Polish + Responsive + Effects
+=======================================================*/
+
+/* ==========================
+ROOT COLORS
+========================== */
+
+:root{
+
+--primary:#2563eb;
+--primary-dark:#1d4ed8;
+--secondary:#10b981;
+--danger:#ef4444;
+--warning:#f59e0b;
+--dark:#0f172a;
+--text:#475569;
+--border:#e2e8f0;
+--white:#ffffff;
+
+}
+
+/* ==========================
+PAGE FADE
+========================== */
+
+body{
+
+animation:pageFade .7s ease;
+
+}
+
+@keyframes pageFade{
+
+from{
+
+opacity:0;
+
+}
+
+to{
+
+opacity:1;
+
+}
+
+}
+
+/* ==========================
+CARD GLOW
+========================== */
+
+.card:hover,
+.assignment-card:hover,
+.profile-card:hover,
+.submission-card:hover{
+
+border:1px solid rgba(37,99,235,.15);
+
+}
+
+/* ==========================
+ICON BOX
+========================== */
+
+.icon-box{
+
+width:60px;
+height:60px;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+border-radius:18px;
+
+background:linear-gradient(
+135deg,
+#2563eb,
+#60a5fa
+);
+
+color:white;
+
+font-size:26px;
+
+margin-bottom:18px;
+
+box-shadow:
+
+0 12px 35px rgba(37,99,235,.30);
+
+}
+
+/* ==========================
+BUTTON RIPPLE
+========================== */
+
+button,
+.btn,
+.download-btn,
+.submit-btn{
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+button::after,
+.btn::after,
+.download-btn::after,
+.submit-btn::after{
+
+content:"";
+
+position:absolute;
+
+width:0;
+height:0;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.35);
+
+left:50%;
+top:50%;
+
+transform:translate(-50%,-50%);
+
+transition:.45s;
+
+}
+
+button:hover::after,
+.btn:hover::after,
+.download-btn:hover::after,
+.submit-btn:hover::after{
+
+width:320px;
+height:320px;
+
+}
+
+/* ==========================
+SMOOTH LINKS
+========================== */
+
+a{
+
+transition:.3s;
+
+}
+
+/* ==========================
+PREMIUM DIVIDER
+========================== */
+
+hr{
+
+border:none;
+
+height:1px;
+
+background:#e2e8f0;
+
+margin:25px 0;
+
+}
+
+/* ==========================
+NOTIFICATION BOX
+========================== */
+
+.notice{
+
+padding:18px 22px;
+
+border-radius:18px;
+
+background:#eff6ff;
+
+border-left:5px solid var(--primary);
+
+margin-bottom:25px;
+
+color:#1e3a8a;
+
+}
+
+/* ==========================
+SUCCESS ALERT
+========================== */
+
+.success{
+
+background:#ecfdf5;
+
+border-left:5px solid #10b981;
+
+color:#047857;
+
+}
+
+/* ==========================
+WARNING ALERT
+========================== */
+
+.warning{
+
+background:#fff7ed;
+
+border-left:5px solid #f59e0b;
+
+color:#b45309;
+
+}
+
+/* ==========================
+ERROR ALERT
+========================== */
+
+.error{
+
+background:#fef2f2;
+
+border-left:5px solid #ef4444;
+
+color:#b91c1c;
+
+}
+
+/* ==========================
+FOCUS EFFECT
+========================== */
+
+textarea:focus,
+input:focus,
+select:focus{
+
+transform:scale(1.01);
+
+}
+
+/* ==========================
+PROFILE IMAGE
+========================== */
+
+.profile-avatar img{
+
+transition:.4s;
+
+}
+
+.profile-avatar:hover img{
+
+transform:scale(1.08);
+
+}
+
+/* ==========================
+HOVER EFFECT
+========================== */
+
+.assignment-card h3,
+.card h2{
+
+transition:.3s;
+
+}
+
+.assignment-card:hover h3{
+
+color:var(--primary);
+
+}
+
+.card:hover h2{
+
+transform:scale(1.08);
+
+}
+
+/* ==========================
+TABLE RESPONSIVE
+========================== */
+
+table{
+
+min-width:900px;
+
+}
+
+.table-wrapper{
+
+overflow:auto;
+
+border-radius:20px;
+
+}
+
+/* ==========================
+MOBILE
+========================== */
+
+@media(max-width:992px){
+
+.main{
+
+padding:25px;
+
+}
+
+.profile-card{
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+.assignment-buttons{
+
+flex-direction:column;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.sidebar{
+
+position:relative;
+
+width:100%;
+
+padding:20px;
+
+}
+
+.sidebar ul{
+
+display:flex;
+
+overflow:auto;
+
+gap:10px;
+
+}
+
+.sidebar li{
+
+margin:0;
+
+flex-shrink:0;
+
+}
+
+.sidebar a{
+
+padding:14px 18px;
+
+}
+
+.main{
+
+margin-left:0;
+
+width:100%;
+
+padding:20px;
+
+}
+
+header{
+
+padding:25px;
+
+}
+
+header h1{
+
+font-size:30px;
+
+}
+
+.stats{
+
+grid-template-columns:1fr;
+
+}
+
+#assignmentList{
+
+grid-template-columns:1fr;
+
+}
+
+#submissionList{
+
+grid-template-columns:1fr;
+
+}
+
+.profile-card{
+
+padding:25px;
+
+}
+
+.profile-avatar{
+
+width:110px;
+height:110px;
+
+}
+
+}
+
+/* ==========================
+EXTRA SMALL DEVICES
+========================== */
+
+@media(max-width:480px){
+
+header h1{
+
+font-size:24px;
+
+}
+
+.card h2{
+
+font-size:34px;
+
+}
+
+.section-title h2{
+
+font-size:24px;
+
+}
+
+.assignment-card{
+
+padding:22px;
+
+}
+
+button,
+.btn{
+
+width:100%;
+
+}
+
+}
+
+/* ==========================
+LOADING SHIMMER
+========================== */
+
+.loading{
+
+position:relative;
+
+overflow:hidden;
+
+background:#f1f5f9;
+
+}
+
+.loading::before{
+
+content:"";
+
+position:absolute;
+
+left:-100%;
+
+top:0;
+
+width:100%;
+
+height:100%;
+
+background:
+
+linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.7),
+transparent
+);
+
+animation:loading 1.2s infinite;
+
+}
+
+@keyframes loading{
+
+100%{
+
+left:100%;
+
+}
+
+}
+
+/* ==========================
+FOOTER SPACE
+========================== */
+
+.main{
+
+padding-bottom:80px;
+
+}
