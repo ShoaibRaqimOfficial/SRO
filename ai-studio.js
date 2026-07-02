@@ -1,61 +1,139 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-
 import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-  signOut,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+    db,
+    auth,
+    onAuthStateChanged,
+    collection,
+    addDoc,
+    serverTimestamp
+} from "./firebase.js";
 
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc,
-  updateDoc,
-  deleteDoc,
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  where,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+const form = document.getElementById("aiOrderForm");
+const message = document.getElementById("message");
 
-const firebaseConfig = {
-  apiKey: "AIzaSyD8O5zS5-nxLm2EqL6yf9ANw7H9UF0dPJE",
-  authDomain: "sro-academy-7454d.firebaseapp.com",
-  projectId: "sro-academy-7454d",
-  storageBucket: "sro-academy-7454d.firebasestorage.app",
-  messagingSenderId: "959907656036",
-  appId: "1:959907656036:web:fddd1f007120ae60d38a71",
-  measurementId: "G-YPPNNBR494"
-};
+// ==============================
+// LOGIN CHECK
+// ==============================
 
-const app = initializeApp(firebaseConfig);
+onAuthStateChanged(auth, (user) => {
 
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+    if (!user) {
 
-export {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-  signOut,
-  onAuthStateChanged,
+        window.location.href = "login.html";
+        return;
 
-  doc,
-  setDoc,
-  getDoc,
-  updateDoc,
-  deleteDoc,
+    }
 
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  where,
-  serverTimestamp
-};
+});
+
+// ==============================
+// CREDIT CALCULATOR
+// ==============================
+
+const durationSelect = document.getElementById("duration");
+const creditText = document.getElementById("creditText");
+
+function updateCredits() {
+
+    const duration = parseInt(durationSelect.value);
+
+    let credits = Math.ceil(duration / 20);
+
+    creditText.textContent = `${credits} Credit${credits > 1 ? "s" : ""}`;
+
+}
+
+durationSelect.addEventListener("change", updateCredits);
+
+updateCredits();
+// ==============================
+// SUBMIT ORDER
+// ==============================
+
+form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const user = auth.currentUser;
+
+    if (!user) {
+
+        message.style.color = "red";
+        message.textContent = "Please login first.";
+        return;
+
+    }
+
+    const script = document.getElementById("script").value.trim();
+    const language = document.getElementById("language").value;
+    const ratio = document.getElementById("ratio").value;
+    const duration = parseInt(document.getElementById("duration").value);
+    const notes = document.getElementById("notes").value.trim();
+
+    const avatarFile = document.getElementById("avatar").files[0];
+    const voiceFile = document.getElementById("voice").files[0];
+
+    if (!script || !avatarFile || !voiceFile) {
+
+        message.style.color = "red";
+        message.textContent = "Please complete all required fields.";
+        return;
+
+    }
+
+    const credits = Math.ceil(duration / 20);
+
+    message.style.color = "#2563eb";
+    message.textContent = "Submitting your AI video request...";
+
+    try {
+              await addDoc(collection(db, "aiOrders"), {
+
+            userId: user.uid,
+
+            userEmail: user.email,
+
+            script: script,
+
+            language: language,
+
+            ratio: ratio,
+
+            duration: duration,
+
+            creditsUsed: credits,
+
+            notes: notes,
+
+            // Abhi file upload implement nahi hua,
+            // isliye sirf filename save kar rahe hain.
+            avatarFileName: avatarFile.name,
+
+            voiceFileName: voiceFile.name,
+
+            status: "Queue",
+
+            driveLink: "",
+
+            adminMessage: "",
+
+            createdAt: serverTimestamp()
+
+        });
+
+        message.style.color = "green";
+        message.textContent = "✅ Your AI Video request has been submitted successfully.";
+
+        form.reset();
+
+        updateCredits();
+
+    } catch (error) {
+
+        console.error(error);
+
+        message.style.color = "red";
+        message.textContent = error.message;
+
+    }
+
+});
