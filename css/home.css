@@ -1984,3 +1984,175 @@ color:#ffffff;
 }
 
 }
+/* ==========================================
+   SRO AI STUDIO
+========================================== */
+
+.ai-studio{
+padding:100px 0;
+background:#0f172a;
+color:#fff;
+}
+
+.ai-studio-box{
+display:grid;
+grid-template-columns:1.2fr 1fr;
+gap:60px;
+align-items:center;
+}
+
+.ai-badge{
+display:inline-block;
+padding:10px 18px;
+background:#2563eb;
+border-radius:50px;
+font-size:14px;
+font-weight:600;
+margin-bottom:20px;
+}
+
+.ai-left h2{
+font-size:48px;
+line-height:1.2;
+margin-bottom:20px;
+}
+
+.ai-left h2 span{
+color:#60a5fa;
+}
+
+.ai-left p{
+font-size:18px;
+line-height:1.8;
+color:#cbd5e1;
+margin-bottom:30px;
+}
+
+.ai-features{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+margin-bottom:30px;
+}
+
+.feature{
+background:#1e293b;
+padding:18px;
+border-radius:14px;
+font-weight:600;
+text-align:center;
+transition:.3s;
+}
+
+.feature:hover{
+background:#2563eb;
+transform:translateY(-4px);
+}
+
+.credit-info{
+background:#1e293b;
+padding:25px;
+border-radius:18px;
+margin-bottom:30px;
+}
+
+.credit-info h4{
+font-size:22px;
+margin-bottom:15px;
+}
+
+.credit-info p{
+margin:0;
+color:#cbd5e1;
+}
+
+.ai-buttons{
+display:flex;
+gap:18px;
+flex-wrap:wrap;
+}
+
+.preview-card{
+background:#111827;
+border-radius:24px;
+padding:30px;
+box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+.preview-header{
+display:flex;
+gap:10px;
+margin-bottom:25px;
+}
+
+.dot{
+width:14px;
+height:14px;
+border-radius:50%;
+}
+
+.red{background:#ef4444;}
+.yellow{background:#facc15;}
+.green{background:#22c55e;}
+
+.upload-box{
+background:#1e293b;
+padding:18px;
+border-radius:12px;
+margin-bottom:15px;
+font-weight:600;
+}
+
+.progress{
+height:12px;
+background:#334155;
+border-radius:30px;
+margin:25px 0;
+overflow:hidden;
+}
+
+.progress-bar{
+width:70%;
+height:100%;
+background:linear-gradient(90deg,#2563eb,#60a5fa);
+border-radius:30px;
+animation:loading 2s infinite;
+}
+
+@keyframes loading{
+
+0%{width:10%;}
+
+50%{width:80%;}
+
+100%{width:35%;}
+
+}
+
+@media(max-width:992px){
+
+.ai-studio-box{
+
+grid-template-columns:1fr;
+
+}
+
+.ai-left{
+
+text-align:center;
+
+}
+
+.ai-features{
+
+grid-template-columns:1fr;
+
+}
+
+.ai-buttons{
+
+justify-content:center;
+
+}
+
+}
