@@ -17,6 +17,7 @@ const pendingSubmissionsEl = document.getElementById("pendingSubmissionsCount");
 const approvedSubmissionsEl = document.getElementById("approvedSubmissionsCount");
 const rejectedSubmissionsEl = document.getElementById("rejectedSubmissionsCount");
 const totalStudentsEl = document.getElementById("totalStudentsCount");
+const pendingAdmissionsEl = document.getElementById("pendingSubmissionsCount");
 const logoutBtn = document.getElementById("logoutBtn");
 
 // =====================================
