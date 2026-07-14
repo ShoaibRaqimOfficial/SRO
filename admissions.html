@@ -1,1 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admission Requests | SRO Academy</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+background:#f5f7fb;
+font-family:Arial,sans-serif;
+margin:0;
+padding:30px;
+}
+
+.container{
+max-width:1400px;
+margin:auto;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+flex-wrap:wrap;
+gap:20px;
+}
+
+.header h1{
+margin:0;
+color:#0B3D91;
+}
+
+.header p{
+margin-top:8px;
+color:#666;
+}
+
+.stats{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+margin-bottom:30px;
+}
+
+.card{
+background:#fff;
+padding:20px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+min-width:220px;
+}
+
+.card h2{
+margin:0;
+font-size:34px;
+color:#0B3D91;
+}
+
+.card span{
+color:#777;
+}
+
+.table-box{
+background:#fff;
+border-radius:12px;
+overflow:auto;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+thead{
+background:#0B3D91;
+color:#fff;
+}
+
+th,td{
+padding:15px;
+text-align:left;
+border-bottom:1px solid #eee;
+}
+
+button{
+border:none;
+padding:10px 18px;
+border-radius:8px;
+cursor:pointer;
+font-weight:600;
+}
+
+.approve{
+background:#16a34a;
+color:#fff;
+}
+
+.reject{
+background:#dc2626;
+color:#fff;
+}
+
+.pending{
+background:#f59e0b;
+color:#fff;
+padding:6px 12px;
+border-radius:20px;
+display:inline-block;
+}
+
+.approved{
+background:#16a34a;
+color:#fff;
+padding:6px 12px;
+border-radius:20px;
+display:inline-block;
+}
+
+.rejected{
+background:#dc2626;
+color:#fff;
+padding:6px 12px;
+border-radius:20px;
+display:inline-block;
+}
+
+@media(max-width:768px){
+
+body{
+padding:15px;
+}
+
+.header{
+flex-direction:column;
+align-items:flex-start;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<div>
+
+<h1>🎓 Admission Requests</h1>
+
+<p>
+Approve or reject student admission requests.
+</p>
+
+</div>
+
+<a href="admin.html" class="login-btn">
+
+← Back to Admin
+
+</a>
+
+</div>
+
+<div class="stats">
+
+<div class="card">
+
+<h2 id="totalPending">0</h2>
+
+<span>Pending Applications</span>
+
+</div>
+
+</div>
+
+<div class="table-box">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+
+<th>Email</th>
+
+<th>Phone</th>
+
+<th>DOB</th>
+
+<th>City</th>
+
+<th>Course</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="applicationTable">
+
+<tr>
+
+<td colspan="8" align="center">
+
+Loading...
+
+</td>
+
+</tr>
+  </tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script type="module" src="admissions.js"></script>
+
+</body>
+
+</html>
