@@ -89,7 +89,7 @@ submissionTable.innerHTML+=`
 
 <h3>
 
-📚 ${data.assignmentId || "Assignment"}
+📚 ${data.assignmentTitle || data.assignmentId || "Assignment"}
 
 </h3>
 
