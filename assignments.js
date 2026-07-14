@@ -1,77 +1,159 @@
 import {
-auth,
-db,
-onAuthStateChanged,
-signOut
+    auth,
+    db,
+    onAuthStateChanged,
+    signOut
 } from "./firebase.js";
 
 import {
-collection,
-getDocs,
-query,
-orderBy
+    collection,
+    getDocs,
+    query,
+    orderBy
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
-const assignmentList=document.getElementById("assignmentList");
+const assignmentList = document.getElementById("assignmentList");
 
-onAuthStateChanged(auth,(user)=>{
+let assignments = [];
 
-if(!user){
+onAuthStateChanged(auth, async (user) => {
 
-window.location.href="login.html";
-return;
+    if (!user) {
 
-}
+        window.location.href = "login.html";
 
-loadAssignments();
+        return;
+
+    }
+
+    await loadAssignments();
 
 });
 
-async function loadAssignments(){
+async function loadAssignments() {
 
-assignmentList.innerHTML="<h3>Loading Assignments...</h3>";
+    assignmentList.innerHTML = `
+    <div style="padding:40px;text-align:center;">
+        Loading Assignments...
+    </div>
+    `;
 
-try{
+    try {
 
-const q=query(
+        const q = query(
 
-collection(db,"assignments"),
+            collection(db, "assignments"),
 
-orderBy("createdAt","desc")
+            orderBy("createdAt", "desc")
 
-);
+        );
 
-const snapshot=await getDocs(q);
+        const snapshot = await getDocs(q);
 
-if(snapshot.empty){
+        assignments = [];
 
-assignmentList.innerHTML="<h3>No Assignments Available.</h3>";
+        snapshot.forEach((doc) => {
 
-return;
+            assignments.push({
+
+                id: doc.id,
+
+                ...doc.data()
+
+            });
+
+        });
+
+        renderAssignments();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        assignmentList.innerHTML = `
+        <h3 style="text-align:center;color:red;">
+            Failed to load assignments.
+        </h3>
+        `;
+
+    }
 
 }
 
-assignmentList.innerHTML="";
+function renderAssignments() {
 
-snapshot.forEach((document)=>{
+    if (assignments.length === 0) {
 
-const assignment=document.data();
+        assignmentList.innerHTML = `
+        <h3 style="text-align:center;">
+            No Assignments Available.
+        </h3>
+        `;
 
-assignmentList.innerHTML+=`
+        return;
+
+    }
+
+    assignmentList.innerHTML = "";
+      assignments.forEach((assignment) => {
+
+        const publishDate = assignment.createdAt
+            ? new Date(assignment.createdAt).toLocaleDateString()
+            : "-";
+
+        const publishTime = assignment.createdAt
+            ? new Date(assignment.createdAt).toLocaleTimeString()
+            : "-";
+
+        assignmentList.innerHTML += `
 
 <div class="assignment-card">
 
+<div class="assignment-header">
+
 <h2>${assignment.title}</h2>
 
-<p>${assignment.description}</p>
+<span class="status-badge">
+${assignment.status || "Active"}
+</span>
+
+</div>
+
+<p class="assignment-description">
+
+${assignment.description}
+
+</p>
+
+<div class="assignment-meta">
 
 <p>
 
-<strong>Due Date:</strong>
+<strong>📅 Published:</strong>
 
-${assignment.dueDate}
+${publishDate}
 
 </p>
+
+<p>
+
+<strong>🕒 Time:</strong>
+
+${publishTime}
+
+</p>
+
+<p>
+
+<strong>⏰ Due Date:</strong>
+
+${assignment.dueDate || "-"}
+
+</p>
+
+</div>
 
 <div class="assignment-buttons">
 
@@ -80,12 +162,12 @@ href="${assignment.downloadLink}"
 target="_blank"
 class="download-btn">
 
-📥 Download
+📥 Download Assignment
 
 </a>
 
 <a
-href="submit.html?id=${document.id}"
+href="submit.html?id=${assignment.id}"
 class="submit-btn">
 
 📤 Submit Assignment
@@ -98,14 +180,81 @@ class="submit-btn">
 
 `;
 
-});
+    });
 
-}catch(error){
+}
+// ======================================
+// HELPERS
+// ======================================
 
-console.error(error);
+function formatDate(value) {
 
-assignmentList.innerHTML="<h3>Failed to load assignments.</h3>";
+    if (!value) return "-";
+
+    return new Date(value).toLocaleDateString("en-GB", {
+
+        day: "2-digit",
+
+        month: "long",
+
+        year: "numeric"
+
+    });
 
 }
 
+function formatTime(value) {
+
+    if (!value) return "-";
+
+    return new Date(value).toLocaleTimeString([], {
+
+        hour: "2-digit",
+
+        minute: "2-digit"
+
+    });
+
 }
+
+// ======================================
+// LOGOUT
+// ======================================
+
+window.logout = async function () {
+
+    const ok = confirm(
+        "Are you sure you want to logout?"
+    );
+
+    if (!ok) return;
+
+    try {
+
+        await signOut(auth);
+
+        window.location.href = "login.html";
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(error.message);
+
+    }
+
+};
+
+// ======================================
+// READY
+// ======================================
+
+console.log("====================================");
+
+console.log("SRO Academy V3 Assignment System");
+
+console.log("Assignments Loaded :", assignments.length);
+
+console.log("====================================");
