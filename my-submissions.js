@@ -291,7 +291,6 @@ ${title}
 </div>
 
 <div class="feedback-grid">
-submissionList.innerHTML += `
 
 <div class="feedback-card">
 
