@@ -1,42 +1,81 @@
-import { db, auth, onAuthStateChanged } from "./firebase.js";
+import {
+    db,
+    auth,
+    onAuthStateChanged
+} from "./firebase.js";
 
 import {
-collection,
-query,
-where,
-getDocs,
-doc,
-updateDoc
-
+    collection,
+    query,
+    where,
+    getDocs,
+    doc,
+    updateDoc
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
-const submissionTable=document.getElementById("submissionList");
+const submissionList =
+document.getElementById("submissionList");
 
-const totalSubmission=document.getElementById("totalSubmission");
-const approvedSubmission=document.getElementById("approvedSubmission");
-const pendingSubmission=document.getElementById("pendingSubmission");
-const rejectedSubmission=document.getElementById("rejectedSubmission");
+const totalSubmission =
+document.getElementById("totalSubmission");
 
-// LOGIN
+const approvedSubmission =
+document.getElementById("approvedSubmission");
 
-onAuthStateChanged(auth,(user)=>{
+const pendingSubmission =
+document.getElementById("pendingSubmission");
 
-if(!user){
+const rejectedSubmission =
+document.getElementById("rejectedSubmission");
 
-window.location.href="login.html";
-return;
+let assignmentsMap = {};
 
-}
+onAuthStateChanged(auth, async(user)=>{
 
-loadMySubmissions(user.email);
+    if(!user){
+
+        window.location.href="login.html";
+
+        return;
+
+    }
+
+    await loadAssignments();
+
+    await loadMySubmissions(user.email);
 
 });
 
-// LOAD SUBMISSIONS
+async function loadAssignments(){
 
+    assignmentsMap={};
+
+    const snapshot=await getDocs(
+
+        collection(db,"assignments")
+
+    );
+
+    snapshot.forEach((item)=>{
+
+        assignmentsMap[item.id]={
+
+            id:item.id,
+
+            ...item.data()
+
+        };
+
+    });
+
+}
 async function loadMySubmissions(email){
 
-submissionTable.innerHTML="<p>Loading...</p>";
+submissionList.innerHTML=`
+<div class="assignment-card">
+<h3>Loading...</h3>
+</div>
+`;
 
 try{
 
@@ -50,20 +89,45 @@ where("studentEmail","==",email)
 
 const snapshot=await getDocs(q);
 
+let submissions=[];
+
+snapshot.forEach((item)=>{
+
+submissions.push({
+
+id:item.id,
+
+...item.data()
+
+});
+
+});
+
+submissions.sort((a,b)=>{
+
+return new Date(b.submittedAt||0)-
+new Date(a.submittedAt||0);
+
+});
+
 let total=0;
 let approved=0;
 let pending=0;
 let rejected=0;
 
-submissionTable.innerHTML="";
+submissionList.innerHTML="";
 
-if(snapshot.empty){
+if(submissions.length===0){
 
-submissionTable.innerHTML=`
+submissionList.innerHTML=`
 
 <div class="assignment-card">
 
-<h3>No submissions found.</h3>
+<h3>
+
+No submissions found.
+
+</h3>
 
 </div>
 
@@ -73,9 +137,7 @@ return;
 
 }
 
-snapshot.forEach((document)=>{
-
-const data=document.data();
+for(const data of submissions){
 
 total++;
 
@@ -83,13 +145,71 @@ if(data.status==="Approved") approved++;
 else if(data.status==="Rejected") rejected++;
 else pending++;
 
-submissionTable.innerHTML+=`
+let assignmentTitle=
+data.assignmentTitle;
+
+if(!assignmentTitle){
+
+const assignment=
+
+assignmentsMap[data.assignmentId];
+
+if(assignment){
+
+assignmentTitle=
+assignment.title;
+
+}else{
+
+assignmentTitle="Assignment";
+
+}
+
+}
+
+const submittedDate=
+
+data.submittedDate ||
+
+(data.submittedAt ?
+
+new Date(data.submittedAt)
+.toLocaleDateString("en-GB")
+
+: "-");
+
+const submittedTime=
+
+data.submittedTime ||
+
+(data.submittedAt ?
+
+new Date(data.submittedAt)
+.toLocaleTimeString([],{
+
+hour:"2-digit",
+
+minute:"2-digit"
+
+})
+
+: "-");
+
+let badge="pending";
+
+if(data.status==="Approved")
+badge="approved";
+
+if(data.status==="Rejected")
+badge="rejected";
+
+submissionList.innerHTML+=`
 
 <div class="assignment-card">
 
 <h3>
 
-📚 ${data.assignmentTitle || data.assignmentId || "Assignment"}
+📚 ${assignmentTitle}
 
 </h3>
 
@@ -97,9 +217,9 @@ submissionTable.innerHTML+=`
 
 <strong>Status:</strong>
 
-<span class="status">
+<span class="${badge}">
 
-${data.status || "Pending"}
+${data.status||"Pending"}
 
 </span>
 
@@ -109,19 +229,23 @@ ${data.status || "Pending"}
 
 <strong>Submitted:</strong>
 
-${data.submittedDate || "-"}
+${submittedDate}
 
-${data.submittedTime ? " | " + data.submittedTime : ""}
+&nbsp;|&nbsp;
+
+${submittedTime}
 
 </p>
 
 <hr>
+`;
+  submissionList.innerHTML+=`
 
 <p>
 
 <strong>✅ Pros</strong>
 
-<br>
+<br><br>
 
 ${data.pros || "Waiting for review..."}
 
@@ -131,7 +255,7 @@ ${data.pros || "Waiting for review..."}
 
 <strong>⚠ Needs Improvement</strong>
 
-<br>
+<br><br>
 
 ${data.cons || "Waiting for review..."}
 
@@ -141,7 +265,7 @@ ${data.cons || "Waiting for review..."}
 
 <strong>💬 Teacher Feedback</strong>
 
-<br>
+<br><br>
 
 ${data.feedback || "Waiting for teacher review..."}
 
@@ -151,7 +275,7 @@ ${data.feedback || "Waiting for teacher review..."}
 
 <strong>👨‍🏫 Teacher Reply</strong>
 
-<br>
+<br><br>
 
 ${data.teacherReply || "No reply yet."}
 
@@ -159,15 +283,21 @@ ${data.teacherReply || "No reply yet."}
 
 <textarea
 
-id="question-${document.id}"
+id="question-${data.id}"
 
-placeholder="Feel free to ask your teacher..."
+placeholder="Ask your teacher..."
 
-style="width:100%;margin-top:15px;height:100px;padding:12px;border-radius:10px;">
+style="
+width:100%;
+height:120px;
+padding:12px;
+margin-top:15px;
+border-radius:10px;
+border:1px solid #ddd;
+resize:vertical;
+"
 
-${data.studentQuestion || ""}
-
-</textarea>
+>${data.studentQuestion || ""}</textarea>
 
 <br><br>
 
@@ -175,7 +305,7 @@ ${data.studentQuestion || ""}
 
 class="submit-btn"
 
-onclick="saveQuestion('${document.id}')">
+onclick="saveQuestion('${data.id}')">
 
 Send Question
 
@@ -191,7 +321,7 @@ target="_blank"
 
 class="download-btn">
 
-🎥 View Submission
+🎥 View My Submission
 
 </a>
 
@@ -199,18 +329,23 @@ class="download-btn">
 
 `;
 
-});
+}
 
 totalSubmission.textContent=total;
+
 approvedSubmission.textContent=approved;
+
 pendingSubmission.textContent=pending;
+
 rejectedSubmission.textContent=rejected;
 
-}catch(error){
+}
+
+catch(error){
 
 console.error(error);
 
-submissionTable.innerHTML=`
+submissionList.innerHTML=`
 
 <div class="assignment-card">
 
@@ -227,12 +362,18 @@ Failed to load submissions.
 }
 
 }
-
+// ======================================
 // SAVE QUESTION
+// ======================================
 
-window.saveQuestion=async function(id){
+window.saveQuestion = async function(id){
 
-const question=document.getElementById(`question-${id}`).value;
+try{
+
+const question = document
+.getElementById(`question-${id}`)
+.value
+.trim();
 
 await updateDoc(
 
@@ -240,7 +381,9 @@ doc(db,"submissions",id),
 
 {
 
-studentQuestion:question
+studentQuestion:question,
+
+questionUpdatedAt:new Date().toISOString()
 
 }
 
@@ -248,4 +391,69 @@ studentQuestion:question
 
 alert("Question sent successfully.");
 
+}
+catch(error){
+
+console.error(error);
+
+alert(error.message);
+
+}
+
 };
+
+// ======================================
+// STATUS COLOR REFRESH
+// ======================================
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+document.querySelectorAll(".status").forEach((item)=>{
+
+const value=item.innerText.trim().toLowerCase();
+
+item.classList.remove(
+
+"pending",
+
+"approved",
+
+"rejected"
+
+);
+
+if(value==="approved"){
+
+item.classList.add("approved");
+
+}
+
+else if(value==="rejected"){
+
+item.classList.add("rejected");
+
+}
+
+else{
+
+item.classList.add("pending");
+
+}
+
+});
+
+});
+
+// ======================================
+// READY
+// ======================================
+
+console.log("======================================");
+
+console.log("SRO Academy V3 Student Submission Portal");
+
+console.log("Assignments Cache Loaded");
+
+console.log("Old + New Database Compatible");
+
+console.log("======================================");
