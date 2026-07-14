@@ -28,9 +28,9 @@ document.getElementById("pendingSubmission");
 const rejectedSubmission =
 document.getElementById("rejectedSubmission");
 
-let assignmentsMap = {};
+let assignmentCache = {};
 
-onAuthStateChanged(auth, async(user)=>{
+onAuthStateChanged(auth, async (user)=>{
 
     if(!user){
 
@@ -40,15 +40,15 @@ onAuthStateChanged(auth, async(user)=>{
 
     }
 
-    await loadAssignments();
+    await loadAssignmentCache();
 
     await loadMySubmissions(user.email);
 
 });
 
-async function loadAssignments(){
+async function loadAssignmentCache(){
 
-    assignmentsMap={};
+    assignmentCache={};
 
     const snapshot=await getDocs(
 
@@ -56,28 +56,35 @@ async function loadAssignments(){
 
     );
 
-    snapshot.forEach((item)=>{
+    snapshot.forEach((doc)=>{
 
-        assignmentsMap[item.id]={
+        assignmentCache[doc.id]={
 
-            id:item.id,
+            id:doc.id,
 
-            ...item.data()
+            ...doc.data()
 
         };
 
     });
 
 }
+
 async function loadMySubmissions(email){
 
 submissionList.innerHTML=`
-<div class="assignment-card">
-<h3>Loading...</h3>
-</div>
-`;
 
-try{
+<div class="submission-card">
+
+<div class="submission-body">
+
+Loading...
+
+</div>
+
+</div>
+
+`;
 
 const q=query(
 
@@ -91,24 +98,30 @@ const snapshot=await getDocs(q);
 
 let submissions=[];
 
-snapshot.forEach((item)=>{
+snapshot.forEach((doc)=>{
 
 submissions.push({
 
-id:item.id,
+id:doc.id,
 
-...item.data()
-
-});
+...doc.data()
 
 });
 
-submissions.sort((a,b)=>{
-
-return new Date(b.submittedAt||0)-
-new Date(a.submittedAt||0);
-
 });
+
+submissions.sort((a,b)=>
+
+new Date(b.submittedAt||0)-
+
+new Date(a.submittedAt||0)
+
+);
+
+renderCards(submissions);
+
+}
+function renderCards(submissions){
 
 let total=0;
 let approved=0;
@@ -121,13 +134,13 @@ if(submissions.length===0){
 
 submissionList.innerHTML=`
 
-<div class="assignment-card">
+<div class="submission-card">
 
-<h3>
+<div class="submission-body">
 
-No submissions found.
+<h3>No submissions found.</h3>
 
-</h3>
+</div>
 
 </div>
 
@@ -137,31 +150,25 @@ return;
 
 }
 
-for(const data of submissions){
+submissions.forEach((item)=>{
 
 total++;
 
-if(data.status==="Approved") approved++;
-else if(data.status==="Rejected") rejected++;
+if(item.status==="Approved") approved++;
+else if(item.status==="Rejected") rejected++;
 else pending++;
 
-let assignmentTitle=
-data.assignmentTitle;
+let title=item.assignmentTitle;
 
-if(!assignmentTitle){
+if(!title){
 
-const assignment=
+if(assignmentCache[item.assignmentId]){
 
-assignmentsMap[data.assignmentId];
-
-if(assignment){
-
-assignmentTitle=
-assignment.title;
+title=assignmentCache[item.assignmentId].title;
 
 }else{
 
-assignmentTitle="Assignment";
+title="Unknown Assignment";
 
 }
 
@@ -169,22 +176,24 @@ assignmentTitle="Assignment";
 
 const submittedDate=
 
-data.submittedDate ||
+item.submittedDate ||
 
-(data.submittedAt ?
+(item.submittedAt ?
 
-new Date(data.submittedAt)
+new Date(item.submittedAt)
+
 .toLocaleDateString("en-GB")
 
 : "-");
 
 const submittedTime=
 
-data.submittedTime ||
+item.submittedTime ||
 
-(data.submittedAt ?
+(item.submittedAt ?
 
-new Date(data.submittedAt)
+new Date(item.submittedAt)
+
 .toLocaleTimeString([],{
 
 hour:"2-digit",
@@ -197,129 +206,180 @@ minute:"2-digit"
 
 let badge="pending";
 
-if(data.status==="Approved")
+if(item.status==="Approved"){
+
 badge="approved";
 
-if(data.status==="Rejected")
+}
+
+if(item.status==="Rejected"){
+
 badge="rejected";
+
+}
 
 submissionList.innerHTML+=`
 
-<div class="assignment-card">
+<div class="submission-card">
 
-<h3>
+<div class="submission-header">
 
-📚 ${assignmentTitle}
+<div>
 
-</h3>
+<h2>
+
+📚 ${title}
+
+</h2>
 
 <p>
 
-<strong>Status:</strong>
+${item.course || "SRO Academy"}
 
-<span class="${badge}">
+</p>
 
-${data.status||"Pending"}
+</div>
+
+<div>
+
+<span class="status ${badge}">
+
+${item.status || "Pending"}
 
 </span>
 
-</p>
+</div>
 
-<p>
+</div>
 
-<strong>Submitted:</strong>
+<div class="submission-body">
+
+<div class="meta">
+
+<div class="meta-box">
+
+<strong>Submitted Date</strong>
 
 ${submittedDate}
 
-&nbsp;|&nbsp;
+</div>
+
+<div class="meta-box">
+
+<strong>Submitted Time</strong>
 
 ${submittedTime}
 
-</p>
+</div>
 
-<hr>
-`;
-  submissionList.innerHTML+=`
+<div class="meta-box">
 
-<p>
+<strong>Course</strong>
 
-<strong>✅ Pros</strong>
+${item.course || "-"}
 
-<br><br>
+</div>
 
-${data.pros || "Waiting for review..."}
+<div class="meta-box">
 
-</p>
+<strong>Assignment</strong>
 
-<p>
+${title}
 
-<strong>⚠ Needs Improvement</strong>
+</div>
 
-<br><br>
+</div>
 
-${data.cons || "Waiting for review..."}
+<div class="feedback-grid">
+submissionList.innerHTML += `
 
-</p>
+<div class="feedback-card">
 
-<p>
-
-<strong>💬 Teacher Feedback</strong>
-
-<br><br>
-
-${data.feedback || "Waiting for teacher review..."}
-
-</p>
+<h4>✅ Pros</h4>
 
 <p>
 
-<strong>👨‍🏫 Teacher Reply</strong>
-
-<br><br>
-
-${data.teacherReply || "No reply yet."}
+${item.pros || "Waiting for teacher review..."}
 
 </p>
+
+</div>
+
+<div class="feedback-card">
+
+<h4>⚠ Needs Improvement</h4>
+
+<p>
+
+${item.cons || "Waiting for teacher review..."}
+
+</p>
+
+</div>
+
+<div class="feedback-card">
+
+<h4>💬 Teacher Feedback</h4>
+
+<p>
+
+${item.feedback || "Waiting for teacher feedback..."}
+
+</p>
+
+</div>
+
+<div class="feedback-card">
+
+<h4>👨‍🏫 Teacher Reply</h4>
+
+<p>
+
+${item.teacherReply || "No reply yet."}
+
+</p>
+
+</div>
+
+</div>
+
+<div class="question-section">
+
+<h3 style="margin-bottom:15px;">
+
+Ask Your Teacher
+
+</h3>
 
 <textarea
 
-id="question-${data.id}"
+id="question-${item.id}"
 
-placeholder="Ask your teacher..."
+placeholder="Type your question here..."
 
-style="
-width:100%;
-height:120px;
-padding:12px;
-margin-top:15px;
-border-radius:10px;
-border:1px solid #ddd;
-resize:vertical;
-"
+class="question-box"
 
->${data.studentQuestion || ""}</textarea>
+>${item.studentQuestion || ""}</textarea>
 
-<br><br>
+<div class="button-row">
 
 <button
 
-class="submit-btn"
+class="send-btn"
 
-onclick="saveQuestion('${data.id}')">
+onclick="saveQuestion('${item.id}')">
 
-Send Question
+📩 Send Question
 
 </button>
 
-<br><br>
-
 <a
 
-href="${data.assignmentLink}"
+href="${item.assignmentLink}"
 
 target="_blank"
 
-class="download-btn">
+class="view-btn">
 
 🎥 View My Submission
 
@@ -327,39 +387,23 @@ class="download-btn">
 
 </div>
 
-`;
+</div>
 
-}
-
-totalSubmission.textContent=total;
-
-approvedSubmission.textContent=approved;
-
-pendingSubmission.textContent=pending;
-
-rejectedSubmission.textContent=rejected;
-
-}
-
-catch(error){
-
-console.error(error);
-
-submissionList.innerHTML=`
-
-<div class="assignment-card">
-
-<h3 style="color:red;">
-
-Failed to load submissions.
-
-</h3>
+</div>
 
 </div>
 
 `;
 
-}
+});
+
+totalSubmission.textContent = total;
+
+approvedSubmission.textContent = approved;
+
+pendingSubmission.textContent = pending;
+
+rejectedSubmission.textContent = rejected;
 
 }
 // ======================================
@@ -370,7 +414,7 @@ window.saveQuestion = async function(id){
 
 try{
 
-const question = document
+const question=document
 .getElementById(`question-${id}`)
 .value
 .trim();
@@ -403,20 +447,22 @@ alert(error.message);
 };
 
 // ======================================
-// STATUS COLOR REFRESH
+// STATUS REFRESH
 // ======================================
 
-document.addEventListener("DOMContentLoaded",()=>{
+function refreshStatusBadges(){
 
-document.querySelectorAll(".status").forEach((item)=>{
+document.querySelectorAll(".status").forEach((badge)=>{
 
-const value=item.innerText.trim().toLowerCase();
+const value=badge.innerText
+.trim()
+.toLowerCase();
 
-item.classList.remove(
-
-"pending",
+badge.classList.remove(
 
 "approved",
+
+"pending",
 
 "rejected"
 
@@ -424,36 +470,44 @@ item.classList.remove(
 
 if(value==="approved"){
 
-item.classList.add("approved");
+badge.classList.add("approved");
 
 }
 
 else if(value==="rejected"){
 
-item.classList.add("rejected");
+badge.classList.add("rejected");
 
 }
 
 else{
 
-item.classList.add("pending");
+badge.classList.add("pending");
 
 }
 
 });
 
-});
+}
+
+document.addEventListener(
+
+"DOMContentLoaded",
+
+refreshStatusBadges
+
+);
 
 // ======================================
 // READY
 // ======================================
 
-console.log("======================================");
+console.log("===================================");
 
-console.log("SRO Academy V3 Student Submission Portal");
+console.log("SRO Academy V2 My Submissions Ready");
 
-console.log("Assignments Cache Loaded");
+console.log("Compatible With Old Database");
 
-console.log("Old + New Database Compatible");
+console.log("Compatible With New Database");
 
-console.log("======================================");
+console.log("===================================");
