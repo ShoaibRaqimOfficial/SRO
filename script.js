@@ -27,36 +27,96 @@ const ADMIN_EMAIL = "itsraqim@gmail.com";
 loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    try {
-        // userCredential mein hum login hone wale user ka data save kar rahe hain
-        const userCredential = await signInWithEmailAndPassword(
-            auth,
-            email.value,
-            password.value
-        );
+try {
+
+    const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email.value,
+        password.value
+    );
+
+    const currentUserEmail =
+        userCredential.user.email.trim().toLowerCase();
+
+    // ===========================
+    // ADMIN LOGIN
+    // ===========================
+
+    if (currentUserEmail === ADMIN_EMAIL.toLowerCase()) {
 
         message.style.color = "green";
-        message.textContent = "Login Successful! Redirecting...";
+        message.textContent = "Welcome Admin...";
 
-        // User ki email check kar ke sahi page par bhejna
         setTimeout(() => {
-            const currentUserEmail = userCredential.user.email.trim().toLowerCase();
-            
-         if (currentUserEmail === ADMIN_EMAIL.toLowerCase()) {
 
-    window.location.href = "dashboard.html";
+            window.location.href = "dashboard.html";
 
-} else {
+        },1000);
 
-    window.location.href = "student-dashboard.html";
+        return;
+
+    }
+
+    // ===========================
+    // STUDENT APPROVAL CHECK
+    // ===========================
+
+    const q = query(
+
+        collection(db,"applications"),
+
+        where("email","==",currentUserEmail)
+
+    );
+
+    const snapshot = await getDocs(q);
+
+    if(snapshot.empty){
+
+        message.style.color="red";
+        message.textContent="Admission record not found.";
+
+        return;
+
+    }
+
+    const application = snapshot.docs[0].data();
+
+    if(application.status==="Pending"){
+
+        message.style.color="#ff9800";
+        message.textContent="Your admission is waiting for admin approval.";
+
+        return;
+
+    }
+
+    if(application.status==="Rejected"){
+
+        message.style.color="red";
+        message.textContent="Your admission has been rejected.";
+
+        return;
+
+    }
+
+    message.style.color="green";
+    message.textContent="Login Successful!";
+
+    setTimeout(()=>{
+
+        window.location.href="student-dashboard.html";
+
+    },1000);
 
 }
-        }, 1000);
 
-    } catch (error) {
-        message.style.color = "red";
-        message.textContent = error.message;
-    }
+catch(error){
+
+    message.style.color="red";
+    message.textContent=error.message;
+
+}
 });
 
 // Create Account
