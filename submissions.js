@@ -1,59 +1,177 @@
-import { db, auth, onAuthStateChanged } from "./firebase.js";
+import {
+    db,
+    auth,
+    onAuthStateChanged
+} from "./firebase.js";
 
 import {
-collection,
-getDocs,
-doc,
-updateDoc,
-deleteDoc
+    collection,
+    getDocs,
+    updateDoc,
+    deleteDoc,
+    doc
 } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
-const ADMIN_EMAIL="itsraqim@gmail.com";
+const ADMIN_EMAIL = "itsraqim@gmail.com";
 
-const submissionTable=document.getElementById("submissionTable");
+const reviewContainer =
+document.getElementById("reviewContainer");
 
-onAuthStateChanged(auth,(user)=>{
+const totalSubmissions =
+document.getElementById("totalSubmissions");
 
-if(!user){
+const pendingCount =
+document.getElementById("pendingCount");
 
-window.location.href="login.html";
-return;
+const approvedCount =
+document.getElementById("approvedCount");
 
-}
+const rejectedCount =
+document.getElementById("rejectedCount");
 
-if(user.email.toLowerCase()!=ADMIN_EMAIL.toLowerCase()){
+const studentSearch =
+document.getElementById("studentSearch");
 
-alert("Access Denied");
+const assignmentSearch =
+document.getElementById("assignmentSearch");
 
-window.location.href="login.html";
+const statusFilter =
+document.getElementById("statusFilter");
 
-return;
+let submissions = [];
 
-}
+onAuthStateChanged(auth, async(user)=>{
 
-loadSubmissions();
+    if(!user){
+
+        window.location.href="login.html";
+
+        return;
+
+    }
+
+    if(user.email.toLowerCase()!=
+    ADMIN_EMAIL.toLowerCase()){
+
+        alert("Access Denied");
+
+        window.location.href="login.html";
+
+        return;
+
+    }
+
+    await loadSubmissions();
 
 });
 
 async function loadSubmissions(){
 
-submissionTable.innerHTML="";
+    reviewContainer.innerHTML=`
 
-const snapshot=await getDocs(collection(db,"submissions"));
+    <div class="empty">
 
-if(snapshot.empty){
+    Loading submissions...
 
-submissionTable.innerHTML=`
+    </div>
 
-<tr>
+    `;
 
-<td colspan="11" style="text-align:center;">
+    submissions=[];
+
+    const snapshot=await getDocs(
+
+        collection(db,"submissions")
+
+    );
+
+    snapshot.forEach((item)=>{
+
+        submissions.push({
+
+            id:item.id,
+
+            ...item.data()
+
+        });
+
+    });
+
+    submissions.sort((a,b)=>{
+
+        return new Date(b.submittedAt||0)-
+        new Date(a.submittedAt||0);
+
+    });
+
+    renderSubmissions();
+
+}
+function renderSubmissions(){
+
+let studentKeyword=
+studentSearch.value.toLowerCase().trim();
+
+let assignmentKeyword=
+assignmentSearch.value.toLowerCase().trim();
+
+let status=statusFilter.value;
+
+let filtered=submissions.filter((item)=>{
+
+const student=(item.studentName||"")
+.toLowerCase();
+
+const assignment=(item.assignmentTitle||
+item.assignmentId||"")
+.toLowerCase();
+
+const currentStatus=
+(item.status||"Pending");
+
+if(studentKeyword &&
+!student.includes(studentKeyword))
+return false;
+
+if(assignmentKeyword &&
+!assignment.includes(assignmentKeyword))
+return false;
+
+if(status!="All" &&
+currentStatus!=status)
+return false;
+
+return true;
+
+});
+
+totalSubmissions.textContent=
+filtered.length;
+
+pendingCount.textContent=
+filtered.filter(x=>
+(x.status||"Pending")=="Pending"
+).length;
+
+approvedCount.textContent=
+filtered.filter(x=>
+x.status=="Approved"
+).length;
+
+rejectedCount.textContent=
+filtered.filter(x=>
+x.status=="Rejected"
+).length;
+
+if(filtered.length===0){
+
+reviewContainer.innerHTML=`
+
+<div class="empty">
 
 No submissions found.
 
-</td>
-
-</tr>
+</div>
 
 `;
 
@@ -61,27 +179,191 @@ return;
 
 }
 
-snapshot.forEach((document)=>{
+const groups={};
 
-const data=document.data();
+filtered.forEach(item=>{
 
-submissionTable.innerHTML+=`
+const title=
+item.assignmentTitle ||
+item.assignmentId ||
+"Unknown Assignment";
+
+if(!groups[title]){
+
+groups[title]=[];
+
+}
+
+groups[title].push(item);
+
+});
+
+reviewContainer.innerHTML="";
+
+Object.keys(groups).forEach(title=>{
+
+const list=groups[title];
+
+const first=list[0];
+
+reviewContainer.innerHTML+=`
+
+<div class="assignment-card">
+
+<div class="assignment-header">
+
+<div>
+
+<h2>${title}</h2>
+
+<p style="margin-top:8px;opacity:.9;">
+
+${list.length}
+Submission(s)
+
+</p>
+
+</div>
+
+<div>
+
+${first.assignmentDueDate||"-"}
+
+</div>
+
+</div>
+
+<div class="assignment-meta">
+
+<div>
+
+<strong>Course</strong>
+
+${first.course||"-"}
+
+</div>
+
+<div>
+
+<strong>Published</strong>
+
+${first.assignmentCreatedAt ?
+new Date(first.assignmentCreatedAt)
+.toLocaleDateString() : "-"}
+
+</div>
+
+<div>
+
+<strong>Status</strong>
+
+Active
+
+</div>
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
 
 <tr>
 
-<td>${data.studentName}</td>
+<th>SR</th>
 
-<td>${data.studentEmail}</td>
+<th>Student</th>
 
-<td>${data.assignmentId}</td>
+<th>Email</th>
 
-<td>${data.status || "Pending"}</td>
+<th>Submitted</th>
+
+<th>Status</th>
+
+<th>File</th>
+
+<th>Pros</th>
+
+<th>Needs Improvement</th>
+
+<th>Feedback</th>
+
+<th>Teacher Reply</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+`;
+  list.forEach((item,index)=>{
+
+const statusClass=
+(item.status||"Pending").toLowerCase();
+
+reviewContainer.innerHTML+=`
+
+<tr>
 
 <td>
 
-<a href="${data.assignmentLink}" target="_blank">
+${index+1}
 
-Open
+</td>
+
+<td>
+
+<strong>${item.studentName||"-"}</strong>
+
+</td>
+
+<td>
+
+${item.studentEmail||"-"}
+
+</td>
+
+<td>
+
+<div>
+
+${item.submittedDate||"-"}
+
+</div>
+
+<div style="font-size:12px;color:#666;">
+
+${item.submittedTime||"-"}
+
+</div>
+
+</td>
+
+<td>
+
+<span class="status ${statusClass}">
+
+${item.status||"Pending"}
+
+</span>
+
+</td>
+
+<td>
+
+<a
+
+href="${item.assignmentLink}"
+
+target="_blank"
+
+class="open-btn">
+
+Open File
 
 </a>
 
@@ -90,54 +372,96 @@ Open
 <td>
 
 <textarea
-id="pros-${document.id}"
-rows="3"
-style="width:180px;">${data.pros || ""}</textarea>
+
+class="review-box"
+
+id="pros-${item.id}"
+
+>${item.pros||""}</textarea>
 
 </td>
 
 <td>
 
 <textarea
-id="cons-${document.id}"
-rows="3"
-style="width:180px;">${data.cons || ""}</textarea>
+
+class="review-box"
+
+id="cons-${item.id}"
+
+>${item.cons||""}</textarea>
 
 </td>
 
 <td>
 
 <textarea
-id="feedback-${document.id}"
-rows="3"
-style="width:220px;">${data.feedback || ""}</textarea>
 
-</td>
+class="review-box"
 
-<td>
+id="feedback-${item.id}"
 
-${data.studentQuestion || "-"}
+>${item.feedback||""}</textarea>
 
 </td>
 
 <td>
 
 <textarea
-id="reply-${document.id}"
-rows="3"
-style="width:220px;">${data.teacherReply || ""}</textarea>
+
+class="review-box"
+
+id="reply-${item.id}"
+
+>${item.teacherReply||""}</textarea>
 
 </td>
 
 <td>
 
-<button onclick="saveFeedback('${document.id}')">💾</button>
+<div class="action-group">
 
-<button onclick="approveSubmission('${document.id}')">✅</button>
+<button
 
-<button onclick="rejectSubmission('${document.id}')">❌</button>
+class="save-btn"
 
-<button onclick="deleteSubmission('${document.id}')">🗑</button>
+onclick="saveFeedback('${item.id}')">
+
+💾 Save
+
+</button>
+
+<button
+
+class="approve-btn"
+
+onclick="approveSubmission('${item.id}')">
+
+✅ Approve
+
+</button>
+
+<button
+
+class="reject-btn"
+
+onclick="rejectSubmission('${item.id}')">
+
+❌ Reject
+
+</button>
+
+<button
+
+class="delete-btn"
+
+onclick="deleteSubmission('${item.id}')">
+
+🗑 Delete
+
+</button>
+
+</div>
 
 </td>
 
@@ -147,53 +471,46 @@ style="width:220px;">${data.teacherReply || ""}</textarea>
 
 });
 
-}
+reviewContainer.innerHTML+=`
 
-window.approveSubmission=async(id)=>{
+</tbody>
 
-await updateDoc(doc(db,"submissions",id),{
+</table>
 
-status:"Approved"
+</div>
 
-});
+</div>
 
-loadSubmissions();
-
-};
-
-window.rejectSubmission=async(id)=>{
-
-await updateDoc(doc(db,"submissions",id),{
-
-status:"Rejected"
+`;
 
 });
 
-loadSubmissions();
-
-};
-
-window.deleteSubmission=async(id)=>{
-
-if(confirm("Delete Submission?")){
-
-await deleteDoc(doc(db,"submissions",id));
-
-loadSubmissions();
-
 }
 
-};
+studentSearch.addEventListener("input",renderSubmissions);
 
-window.saveFeedback=async(id)=>{
+assignmentSearch.addEventListener("input",renderSubmissions);
 
-const pros=document.getElementById(`pros-${id}`).value;
+statusFilter.addEventListener("change",renderSubmissions);
+// ======================================
+// SAVE FEEDBACK
+// ======================================
 
-const cons=document.getElementById(`cons-${id}`).value;
+window.saveFeedback = async function(id){
 
-const feedback=document.getElementById(`feedback-${id}`).value;
+try{
 
-const teacherReply=document.getElementById(`reply-${id}`).value;
+const pros =
+document.getElementById(`pros-${id}`).value;
+
+const cons =
+document.getElementById(`cons-${id}`).value;
+
+const feedback =
+document.getElementById(`feedback-${id}`).value;
+
+const teacherReply =
+document.getElementById(`reply-${id}`).value;
 
 await updateDoc(doc(db,"submissions",id),{
 
@@ -203,10 +520,126 @@ cons,
 
 feedback,
 
-teacherReply
+teacherReply,
+
+reviewedAt:new Date().toISOString(),
+
+reviewedBy:ADMIN_EMAIL
 
 });
 
-alert("Saved Successfully");
+alert("Feedback Saved Successfully.");
+
+await loadSubmissions();
+
+}
+catch(error){
+
+console.error(error);
+
+alert(error.message);
+
+}
 
 };
+
+// ======================================
+// APPROVE
+// ======================================
+
+window.approveSubmission = async function(id){
+
+try{
+
+await updateDoc(doc(db,"submissions",id),{
+
+status:"Approved",
+
+reviewedAt:new Date().toISOString(),
+
+reviewedBy:ADMIN_EMAIL
+
+});
+
+await loadSubmissions();
+
+}
+catch(error){
+
+console.error(error);
+
+alert(error.message);
+
+}
+
+};
+
+// ======================================
+// REJECT
+// ======================================
+
+window.rejectSubmission = async function(id){
+
+try{
+
+await updateDoc(doc(db,"submissions",id),{
+
+status:"Rejected",
+
+reviewedAt:new Date().toISOString(),
+
+reviewedBy:ADMIN_EMAIL
+
+});
+
+await loadSubmissions();
+
+}
+catch(error){
+
+console.error(error);
+
+alert(error.message);
+
+}
+
+};
+
+// ======================================
+// DELETE
+// ======================================
+
+window.deleteSubmission = async function(id){
+
+const ok = confirm(
+"Delete this submission permanently?"
+);
+
+if(!ok) return;
+
+try{
+
+await deleteDoc(doc(db,"submissions",id));
+
+await loadSubmissions();
+
+}
+catch(error){
+
+console.error(error);
+
+alert(error.message);
+
+}
+
+};
+
+// ======================================
+// READY
+// ======================================
+
+console.log("======================================");
+
+console.log("SRO Academy V3 Review System Loaded");
+
+console.log("======================================");
