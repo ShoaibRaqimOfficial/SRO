@@ -109,7 +109,9 @@ ${data.status || "Pending"}
 
 <strong>Submitted:</strong>
 
-${data.submittedAt || "-"}
+${data.submittedDate || "-"}
+
+${data.submittedTime ? " | " + data.submittedTime : ""}
 
 </p>
 
