@@ -58,7 +58,22 @@ async function loadDashboard() {
         // Assignments
 
         const assignmentSnap = await getDocs(collection(db, "assignments"));
+        
+const applicationsSnap = await getDocs(collection(db, "applications"));
 
+let pendingAdmissions = 0;
+
+applicationsSnap.forEach((doc)=>{
+
+const data = doc.data();
+
+if((data.status || "Pending") === "Pending"){
+
+pendingAdmissions++;
+
+}
+
+});
         totalAssignmentsEl.textContent = assignmentSnap.size;
 
         // Submissions
@@ -99,7 +114,7 @@ async function loadDashboard() {
 
         });
 
-        pendingSubmissionsEl.textContent = pending;
+       pendingAdmissionsEl.textContent = pendingAdmissions;
 
         approvedSubmissionsEl.textContent = approved;
 
