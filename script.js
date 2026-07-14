@@ -1,9 +1,17 @@
 import {
   auth,
+  db,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail
 } from "./firebase.js";
+
+import {
+collection,
+query,
+where,
+getDocs
+} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
 const loginForm = document.getElementById("loginForm");
 const email = document.getElementById("email");
